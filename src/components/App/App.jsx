@@ -7,7 +7,7 @@ import PublicRoute from 'components/PublicRoute';
 
 
 // import { getIsFetchingCurrent } from 'redux/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCurrentUser } from 'redux/AuthRedux/operations';
 // import { fetchCurrentUser } from 'redux/operations/operations';
