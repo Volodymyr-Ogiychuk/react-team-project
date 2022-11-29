@@ -2,8 +2,8 @@ import Media from 'react-media';
 import { NavLink } from 'react-router-dom';
 import s from './Navigation.module.css';
 import sprite from './sprite.svg';
-// import { Outlet } from 'react-router-dom';
-// import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 
 const mediaQueries = {
   response: '(max-width: 479px)',
@@ -14,14 +14,13 @@ const mediaQueries = {
 
 const Navigation = () => {
   return (
-  
+  <>
     <ul className={s.nav}>
       <li className={s.navItem}>
         <NavLink
-          exact
-          to="/"
+          to="wallet/transactions"
           className={s.navLink}
-          activeClassName={s.navLinkActive}
+          activeclassname={s.navLinkActive}
         >
           <div className={s.iconWrapper}>
             <svg className={s.svg}>
@@ -33,9 +32,9 @@ const Navigation = () => {
       </li>
       <li className={s.navItem}>
         <NavLink
-          to="statistics"
+          to="wallet/statistics"
           className={s.navLink}
-          activeClassName={s.navLinkActive}
+          activeclassname={s.navLinkActive}
         >
           <div className={s.iconWrapper}>
             <svg className={s.svg}>
@@ -53,7 +52,7 @@ const Navigation = () => {
               <NavLink
                 to="currency"
                 className={s.navLink}
-                activeClassName={s.navLinkActive}
+                activeclassname={s.navLinkActive}
               >
                 <div className={s.iconWrapper}>
                   <svg className={s.svg}>
@@ -66,14 +65,14 @@ const Navigation = () => {
         }
       </Media>
     </ul>
-    // <>
-    //   {/* <NavLink to="register">Register</NavLink>
-    //   <NavLink to="login">Login</NavLink> */}
+    
+      {/* <NavLink to="register">Register</NavLink>
+       <NavLink to="login">Login</NavLink> */}
 
-    //   <Suspense>
-    //     <Outlet />
-    //   </Suspense>
-    // </>
+      <Suspense>
+        <Outlet />
+      </Suspense>
+    </>
   );
 };
 export default Navigation;
