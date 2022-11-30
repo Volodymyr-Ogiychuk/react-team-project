@@ -41,7 +41,7 @@ const Transactions = () => {
           </tr>
         </thead>
         <tbody>
-          {transactionsData && transactionsData.map(
+          {transactionsData.map(
             ({
               id,
               transactionDate,
@@ -55,7 +55,7 @@ const Transactions = () => {
                 <td style={{ padding: '5px' }}>{transactionDate}</td>
                 <td style={{ padding: '5px' }}>{type}</td>
                 <td style={{ padding: '5px' }}>
-                  {categories.find(category => category.id === categoryId).name}
+                {categories.find(category => category.id === categoryId)?.name}
                 </td>
                 <td style={{ padding: '5px' }}>{comment}</td>
                 <td style={{ padding: '5px' }}>{Math.abs(amount)}</td>
