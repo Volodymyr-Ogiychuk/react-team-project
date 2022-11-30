@@ -26,7 +26,7 @@ const auth = createSlice({
     [LoginApi.pending]: handlePending,
     [LoginApi.rejected]: handleRejected,
     [LoginApi.fulfilled](state, action) {
-      state.username = action.payload.username;
+      state.username = action.payload.user.username;
       state.token = action.payload.token;
       state.isLoggedIn = true;
       state.balance = action.payload.balance;
@@ -35,7 +35,7 @@ const auth = createSlice({
     [RegisterApi.pending]: handlePending,
     [RegisterApi.rejected]: handleRejected,
     [RegisterApi.fulfilled](state, action) {
-      state.username = action.payload.username;
+      state.username = action.payload.user.username;
       state.token = action.payload.token;
       state.isLoggedIn = true;
       state.balance = action.payload.balance;
