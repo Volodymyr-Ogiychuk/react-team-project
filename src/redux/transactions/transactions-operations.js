@@ -52,7 +52,7 @@ export const editTransaction = createAsyncThunk(
 );
 
 export const getCategories = createAsyncThunk(
-  'transactions/getCtegories',
+  'transactions/getCategories',
   async (_, thunkAPI) => {
     try {
       const { data } = await axios.get('/transaction-categories');

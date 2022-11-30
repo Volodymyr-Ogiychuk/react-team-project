@@ -18,7 +18,7 @@ const transactionsSlice = createSlice({
   name: 'transactions',
   initialState: {
     transactions: [],
-    catagories: [],
+    categories: [],
     isLoading: false,
     isTransactionModalOpen: false,
     error: null,
@@ -52,7 +52,7 @@ const transactionsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getCategories.fulfilled, (state, { payload }) => {
-        state.catagories = payload;
+        state.categories = payload;
         state.error = null;
         state.isLoading = false;
       })
