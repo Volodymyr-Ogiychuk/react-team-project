@@ -1,21 +1,29 @@
 import { Formik, Field, Form } from 'formik';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { RegisterApi } from 'redux/AuthRedux/operations';
-
+import sprite from '../Navigation/sprite.svg';
+import sp from './Auth.svg';
 import s from './Login.module.css';
 
 const Register = () => {
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   return (
     <div className={s.box}>
-      <h1>Wallet</h1>
+      <div className={s.logo}>
+        <svg className={s.logoSvg}>
+          <use href={`${sprite}#icon-logo-full`}></use>
+        </svg>
+      </div>
       <Formik
-        initialValues={{ password: '', email: '', username: '' }}
+        initialValues={{
+          password: '',
+          email: '',
+          username: '',
+          userpassword: '',
+        }}
         validate={values => {
           const errors = {};
           if (!values.email) {
@@ -28,44 +36,65 @@ const Register = () => {
           return errors;
         }}
         onSubmit={e => {
-          const password = e.password;
-          if (password.length > 6 && password.length < 12){
-             dispatch(RegisterApi(e))
-          } else{
-            console.log("false")
+          const { email, username, password, userpassword } = e;
+          if (password.length >= 6 && password.length <= 12 && username.length > 1 && username.length <= 12) {
+            password === userpassword
+              ? dispatch(RegisterApi({ email, username, password }))
+              : console.log('The password does not match');
           }
-            navigate('/login');
+          console.log("error");
         }}
       >
         <Form className={s.form}>
-          <Field
-            name="email"
-            type="email"
-            required
-            className={s.field}
-            placeholder="E-mail"
-          />
-          <Field
-            name="password"
-            type="password"
-            required
-            className={s.field}
-            placeholder="Password"
-          />
-          <Field
-            name="password"
-            type="password"
-            required
-            className={s.field}
-            placeholder="Confirm password"
-          />
-          <Field
-            name="username"
-            type="username"
-            required
-            className={s.field}
-            placeholder="First name"
-          />
+          <label>
+          <svg className={s.email}>
+              <use href={`${sp}#email`}></use>
+            </svg>
+            <Field
+              name="email"
+              type="email"
+              required
+              className={s.field}
+              placeholder="E-mail"
+            />
+       
+          </label>
+          <label>
+          <svg className={s.email}>
+              <use href={`${sp}#password`}></use>
+            </svg>
+            <Field
+              name="password"
+              type="password"
+              required
+              className={s.field}
+              placeholder="Password"
+            />
+          </label>
+          <label>
+          <svg className={s.email}>
+              <use href={`${sp}#password`}></use>
+            </svg>
+            <Field
+              name="userpassword"
+              type="password"
+              required
+              className={s.field}
+              placeholder="Confirm password"
+            />
+          </label>
+          <label>
+          <svg className={s.email}>
+              <use href={`${sp}#user`}></use>
+            </svg>
+            <Field
+              name="username"
+              type="username"
+              required
+              className={s.field}
+              placeholder="First name"
+            />
+          </label>
           <button type="submit" className={s.button}>
             Register
           </button>
