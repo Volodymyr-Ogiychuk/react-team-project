@@ -26,6 +26,7 @@ const transactionsSlice = createSlice({
   reducers: {
     toggleModal(state) {
       state.isTransactionModalOpen = !state.isTransactionModalOpen;
+      state.error = null;
     },
   },
   extraReducers: builder => {
@@ -57,7 +58,6 @@ const transactionsSlice = createSlice({
         state.isLoading = false;
       })
       .addMatcher(isRejectedAction, (state, { payload }) => {
-        console.log('reject:', payload);
         state.isLoading = false;
         state.error = payload;
       });

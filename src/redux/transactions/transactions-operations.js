@@ -9,8 +9,8 @@ export const getTransactions = createAsyncThunk(
     try {
       const { data } = await axios.get('/transactions');
       return data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data.message[0]);
     }
   }
 );
@@ -22,7 +22,7 @@ export const addTransaction = createAsyncThunk(
       const { data } = await axios.post('/transactions', transactionDetails);
       return data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(err.response.data.message[0]);
     }
   }
 );
@@ -33,8 +33,8 @@ export const deleteTransaction = createAsyncThunk(
     try {
       const { data } = await axios.delete(`/transactions/${transactionId}`);
       return data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data.message[0]);
     }
   }
 );
@@ -45,8 +45,8 @@ export const editTransaction = createAsyncThunk(
     try {
       const { data } = await axios.patch(`/transactions/${transactionId}`);
       return data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data.message[0]);
     }
   }
 );
@@ -57,8 +57,8 @@ export const getCategories = createAsyncThunk(
     try {
       const { data } = await axios.get('/transaction-categories');
       return data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data.message[0]);
     }
   }
 );
