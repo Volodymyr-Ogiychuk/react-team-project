@@ -30,7 +30,7 @@ export const App = () => {
   return (
     // !isFetchingCurrentUser && (
     <Routes>
-      <Route path="/" element={<Navigation />}>
+      <Route path="/" element={<Navigation/>}>
         <Route
           index
           element={

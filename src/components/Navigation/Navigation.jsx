@@ -1,4 +1,10 @@
 import Media from 'react-media';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getAuthUser,
+  getAuthIsLoggedIn,
+} from '../../redux/AuthRedux/selectors';
+import { ResetApi } from '../../redux/AuthRedux/operations';
 import { NavLink } from 'react-router-dom';
 import s from './Navigation.module.css';
 import sprite from './sprite.svg';
@@ -12,67 +18,59 @@ const mediaQueries = {
   desktop: '(min-width: 1280px)',
 };
 
-const Navigation = () => {
+export default function Navigation() {
+  const dispatch = useDispatch();
+  const username = useSelector(getAuthUser);
+  const isLoggedIn = useSelector(getAuthIsLoggedIn);
+
   return (
-  <>
-    <ul className={s.nav}>
-      <li className={s.navItem}>
-        <NavLink
-          to="wallet/transactions"
-          className={s.navLink}
-          activeclassname={s.navLinkActive}
-        >
-          <div className={s.iconWrapper}>
-            <svg className={s.svg}>
-              <use href={`${sprite}#icon-home`}></use>
-            </svg>
-          </div>
-          <span className={s.navText}>Главная</span>
-        </NavLink>
-      </li>
-      <li className={s.navItem}>
-        <NavLink
-          to="wallet/statistics"
-          className={s.navLink}
-          activeclassname={s.navLinkActive}
-        >
-          <div className={s.iconWrapper}>
-            <svg className={s.svg}>
-              <use href={`${sprite}#icon-statistic`}></use>
-            </svg>
-          </div>
-          <span className={s.navText}>Статистика</span>
-        </NavLink>
-      </li>
-
-      <Media queries={mediaQueries}>
-        {matches =>
-          (matches.mobile || matches.response) && (
-            <li className={s.navItem}>
-              <NavLink
-                to="currency"
-                className={s.navLink}
-                activeclassname={s.navLinkActive}
-              >
-                <div className={s.iconWrapper}>
-                  <svg className={s.svg}>
-                    <use href={`${sprite}#icon-currency`}></use>
+    <>
+      {isLoggedIn && (
+        <>
+          <header className={s.header}>
+            <div className={s.mainContainer}>
+              <div className={s.logoContainer}>
+                <NavLink to="/">
+                  <svg className={s.logoSvg}>
+                    <use href={`${sprite}#icon-logo-full`}></use>
                   </svg>
-                </div>
-              </NavLink>
-            </li>
-          )
-        }
-      </Media>
-    </ul>
-    
-      {/* <NavLink to="register">Register</NavLink>
-       <NavLink to="login">Login</NavLink> */}
-
+                </NavLink>
+              </div>
+              <div className={s.authContainer}>
+                <p className={s.name}>{username}</p>
+                <Media queries={mediaQueries}>
+                  {matches =>
+                    (matches.tablet || matches.desktop) && (
+                      <svg className={s.lineSvg}>
+                        <use href={`${sprite}#icon-vertical-line`}></use>
+                      </svg>
+                    )
+                  }
+                </Media>
+                <button
+                  className={s.button}
+                  onClick={() => dispatch(ResetApi())}
+                  type="button"
+                >
+                  <svg className={s.exitSvg}>
+                    <use href={`${sprite}#icon-exit`}></use>
+                  </svg>
+                  <Media queries={mediaQueries}>
+                    {matches =>
+                      (matches.tablet || matches.desktop) && (
+                        <p className={s.exit}>Exit</p>
+                      )
+                    }
+                  </Media>
+                </button>
+              </div>
+            </div>
+          </header>
+        </>
+      )}
       <Suspense>
         <Outlet />
       </Suspense>
     </>
   );
-};
-export default Navigation;
+}
