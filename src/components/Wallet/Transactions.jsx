@@ -1,55 +1,31 @@
-// import { useEffect } from 'react';
-// import { getTransactions } from 'redux/transactions/transactions-operations';
-// import { selectTransactions } from 'redux/transactions/transactions-selectors';
+import { useEffect } from 'react';
+import {
+  getCategories,
+  getTransactions,
+} from 'redux/transactions/transactions-operations';
+import {
+  selectCategories,
+  selectTransactions,
+} from 'redux/transactions/transactions-selectors';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectModalStatus } from 'redux/transactions/transactions-selectors';
 import { toggleModal } from 'redux/transactions/transactions-slice';
 import { ModalAddTransaction } from './ModalAddTransaction';
 
-const transData = [
-  {
-    id: '1',
-    transactionDate: '12.11.2022',
-    type: '-',
-    categoryId: 'car',
-    userId: 'id214',
-    comment: 'wheels',
-    amount: 2000,
-    balanceAfter: 7000,
-  },
-  {
-    id: '2',
-    transactionDate: '15.11.2022',
-    type: '-',
-    categoryId: 'food',
-    userId: 'id214',
-    comment: 'meat',
-    amount: 500,
-    balanceAfter: 6500,
-  },
-  {
-    id: '3',
-    transactionDate: '22.11.2022',
-    type: '-',
-    categoryId: 'cinema',
-    userId: 'id214',
-    comment: 'batman',
-    amount: 200,
-    balanceAfter: 6300,
-  },
-];
-
 // Логіка фільтрації транзакцій реалізується в цьому компоненті, зверху мають бути найсвіжіші транзакції за датою
 // Продумана max-height: 60vh; (наприклад, а далі включається скролл всередині компонента, скільки vh проговорити це з автором DashboardPage)
 
 const Transactions = () => {
-  // const transactionsData = useSelector(selectTransactions);
   const isModalOpen = useSelector(selectModalStatus);
+  const categories = useSelector(selectCategories);
+  const transactionsData = useSelector(selectTransactions);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getTransactions());
-  // }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getTransactions());
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <>
@@ -65,7 +41,7 @@ const Transactions = () => {
           </tr>
         </thead>
         <tbody>
-          {transData.map(
+          {transactionsData.map(
             ({
               id,
               transactionDate,
@@ -78,9 +54,11 @@ const Transactions = () => {
               <tr key={id}>
                 <td style={{ padding: '5px' }}>{transactionDate}</td>
                 <td style={{ padding: '5px' }}>{type}</td>
-                <td style={{ padding: '5px' }}>{categoryId}</td>
+                <td style={{ padding: '5px' }}>
+                  {categories.find(category => category.id === categoryId).name}
+                </td>
                 <td style={{ padding: '5px' }}>{comment}</td>
-                <td style={{ padding: '5px' }}>{amount}</td>
+                <td style={{ padding: '5px' }}>{Math.abs(amount)}</td>
                 <td style={{ padding: '5px' }}>{balanceAfter}</td>
               </tr>
             )
