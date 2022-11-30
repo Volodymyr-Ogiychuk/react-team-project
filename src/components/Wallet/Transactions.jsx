@@ -41,7 +41,7 @@ const Transactions = () => {
           </tr>
         </thead>
         <tbody>
-          {transactionsData.map(
+          {transactionsData && transactionsData.map(
             ({
               id,
               transactionDate,
