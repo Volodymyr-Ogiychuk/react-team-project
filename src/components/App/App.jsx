@@ -32,9 +32,8 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<Navigation/>}>
         <Route
-          index
           element={
-            <PublicRoute restricted redirectTo="/wallet">
+            <PublicRoute restricted redirectTo="/wallet/home">
             <Login />
             </PublicRoute>
           }
@@ -50,7 +49,7 @@ export const App = () => {
         <Route
           path="/login"
           element={
-            <PublicRoute restricted redirectTo="/wallet">
+            <PublicRoute restricted redirectTo="/wallet/home">
             <Login />
              </PublicRoute>
           }
@@ -64,7 +63,7 @@ export const App = () => {
           }
         >
           <Route
-            path="statistics"
+            path="diagram"
             element={
               <PrivateRoute>
               <Statistics />
@@ -72,7 +71,8 @@ export const App = () => {
             }
           />
           <Route
-            path="transactions"
+            index
+            path="home"
             element={
               <PrivateRoute>
               <Transactions />

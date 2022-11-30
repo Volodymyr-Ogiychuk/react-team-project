@@ -22,11 +22,11 @@ useEffect(() => {
 }, [dispatch]);
     return (
       <>
-        <div>Wallet</div>
+        {/* <div>Wallet</div> */}
         <ul className={s.nav}>
           <li className={s.navItem}>
             <NavLink
-              to="wallet/transactions"
+              to="home"
               className={s.navLink}
               activeclassname={s.navLinkActive}
             >
@@ -40,7 +40,7 @@ useEffect(() => {
           </li>
           <li className={s.navItem}>
             <NavLink
-              to="wallet/statistics"
+              to="diagram"
               className={s.navLink}
               activeclassname={s.navLinkActive}
             >
