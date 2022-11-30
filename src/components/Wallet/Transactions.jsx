@@ -1,7 +1,12 @@
+import { Currency} from './Currency'
+
 const Transactions = () => {
 
     return (
-     <div>Transactions</div>
+      <>
+        <div>Transactions</div>
+        <Currency />
+      </>
     );
   };
   
