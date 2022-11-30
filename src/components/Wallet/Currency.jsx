@@ -9,7 +9,7 @@ export const Currency = () => {
 
   function fetchCurrencyAPI() {
     return (
-      fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5',{headers: {'Access-Control-Allow-Origin': '*'}}).then((response) => response.json())
+      fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5').then((response) => response.json())
         .then((data) => data).catch(e => e.message));
   };
 
