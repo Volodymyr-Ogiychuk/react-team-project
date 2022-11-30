@@ -5,19 +5,23 @@ import { Doughnut } from 'react-chartjs-2';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTransactionsSummary } from 'redux/statistics/statisticsOperations';
-import { categoriesSummary } from 'redux/statistics/statisticsSelectors';
+import {
+  categoriesSummary,
+  expenseSummary,
+  incomeSummary,
+} from 'redux/statistics/statisticsSelectors';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Statistics = () => {
   const stateStatistics = useSelector(categoriesSummary);
+  const expense = useSelector(expenseSummary);
+  const income = useSelector(incomeSummary);
 
   let dataStatistics = [];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTransactionsSummary());
-
-    // eslint-disable-next-line
   }, [dispatch]);
 
   const data = {
@@ -59,21 +63,33 @@ const Statistics = () => {
       <Doughnut data={data} />
 
       <table>
-        <tr>
-          <th>Category</th>
-          <th>Sum</th>
-        </tr>
+        <tbody>
+          <tr>
+            <th>Category</th>
+            <th>Sum</th>
+          </tr>
+          {stateStatistics.map(({ name, type, total }) => {
+            dataStatistics.push(total);
 
-        {stateStatistics.map(({ name, type, total }) => {
-          dataStatistics.push(total);
-          return (
-            <tr>
-              <td>{name}</td>
-              <td>{total}</td>
-            </tr>
-          );
-        })}
+            return type !== 'INCOME' ? (
+              <tr key={name}>
+                <td>{name}</td>
+                <td>{total}</td>
+              </tr>
+            ) : null;
+          })}
+        </tbody>
       </table>
+      <ul>
+        <li>
+          <span>Expenses:</span>
+          <p>{expense}</p>
+        </li>
+        <li>
+          <span>Income:</span>
+          <p>{income}</p>
+        </li>
+      </ul>
     </>
   );
 };
