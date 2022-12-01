@@ -1,79 +1,131 @@
 import { Formik, Field, Form } from 'formik';
-import { NavLink, useNavigate } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
+import register from '../../images/currency/register.png';
 import { useDispatch } from 'react-redux';
 import { RegisterApi } from 'redux/AuthRedux/operations';
-
+import sprite from '../Navigation/sprite.svg';
+import sp from './Auth.svg';
 import s from './Login.module.css';
-
+// import Media from 'react-media';
 const Register = () => {
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const handleSubmit = e => {
+    const { email, username, password, userpassword } = e;
+    if (
+      password.length >= 6 &&
+      password.length <= 12 &&
+      username.length > 1 &&
+      username.length <= 12
+    ) {
+      password === userpassword
+        ? dispatch(RegisterApi({ email, username, password }))
+        : console.log('The password does not match');
+    } else {
+      console.log('error');
+    }
+  };
 
   return (
-    <div className={s.box}>
-      <h1>Wallet</h1>
-      <Formik
-        initialValues={{ password: '', email: '', username: '' }}
-        validate={values => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address';
-          }
-          return errors;
-        }}
-        onSubmit={e => {
-          const password = e.password;
-          if (password.length > 6 && password.length < 12){
-             dispatch(RegisterApi(e))
-          } else{
-            console.log("false")
-          }
-            navigate('/login');
-        }}
-      >
-        <Form className={s.form}>
-          <Field
-            name="email"
-            type="email"
-            required
-            className={s.field}
-            placeholder="E-mail"
-          />
-          <Field
-            name="password"
-            type="password"
-            required
-            className={s.field}
-            placeholder="Password"
-          />
-          <Field
-            name="password"
-            type="password"
-            required
-            className={s.field}
-            placeholder="Confirm password"
-          />
-          <Field
-            name="username"
-            type="username"
-            required
-            className={s.field}
-            placeholder="First name"
-          />
-          <button type="submit" className={s.button}>
-            Register
-          </button>
-          <NavLink to="/login" className={s.link}>
-            Log in
-          </NavLink>
-        </Form>
-      </Formik>
+    <div className={s.section}>
+      <div className={s.aside}>
+        <img src={register} alt="register" className={s.image} />
+        <h2 className={s.title}>Finance App</h2>
+      </div>
+      <div className={s.body}>
+        <div className={s.box}>
+          <div className={s.logo}>
+            <svg className={s.logoSvg}>
+              <use href={`${sprite}#icon-logo-full`}></use>
+            </svg>
+          </div>
+          <Formik
+            initialValues={{
+              password: '',
+              email: '',
+              username: '',
+              userpassword: '',
+            }}
+            validate={values => {
+              const errors = {};
+              if (!values.email) {
+                errors.email = 'Required';
+              } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+              ) {
+                errors.email = 'Invalid email address';
+              }
+              return errors;
+            }}
+            onSubmit={handleSubmit}
+          >
+            <Form className={s.form}>
+              <div className={s.inner}>
+                <label form="email">
+                  <svg className={s.svg}>
+                    <use href={`${sp}#email`}></use>
+                  </svg>
+                  <Field
+                    name="email"
+                    type="email"
+                    required
+                    className={s.field}
+                    placeholder="E-mail"
+                  />
+                </label>
+              </div>
+              <div className={s.inner}>
+                <label form="password">
+                  <svg className={s.svg}>
+                    <use href={`${sp}#password`}></use>
+                  </svg>
+                  <Field
+                    name="password"
+                    type="password"
+                    required
+                    className={s.field}
+                    placeholder="Password"
+                  />
+                </label>
+              </div>
+              <div className={s.inner}>
+                <label form="password">
+                  <svg className={s.svg}>
+                    <use href={`${sp}#password`}></use>
+                  </svg>
+                  <Field
+                    name="userpassword"
+                    type="password"
+                    required
+                    className={s.field}
+                    placeholder="Confirm password"
+                  />
+                  <div className={s.block_check}></div>
+                </label>
+              </div>
+              <div className={s.inner}>
+                <svg className={s.svg}>
+                  <use href={`${sp}#user`}></use>
+                </svg>
+                <label form="username">
+                  <Field
+                    name="username"
+                    type="username"
+                    required
+                    className={s.field}
+                    placeholder="First name"
+                  />
+                </label>
+              </div>
+              <button type="submit" className={s.button}>
+                Register
+              </button>
+              <NavLink to="/login" className={s.link}>
+                Log in
+              </NavLink>
+            </Form>
+          </Formik>
+        </div>
+      </div>
     </div>
   );
 };
