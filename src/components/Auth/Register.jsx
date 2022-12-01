@@ -47,7 +47,7 @@ const Register = () => {
       >
         <Form className={s.form}>
           <label>
-          <svg className={s.email}>
+          <svg className={s.svg}>
               <use href={`${sp}#email`}></use>
             </svg>
             <Field
@@ -60,7 +60,7 @@ const Register = () => {
        
           </label>
           <label>
-          <svg className={s.email}>
+          <svg className={s.svg}>
               <use href={`${sp}#password`}></use>
             </svg>
             <Field
@@ -72,7 +72,7 @@ const Register = () => {
             />
           </label>
           <label>
-          <svg className={s.email}>
+          <svg className={s.svg}>
               <use href={`${sp}#password`}></use>
             </svg>
             <Field
@@ -84,7 +84,7 @@ const Register = () => {
             />
           </label>
           <label>
-          <svg className={s.email}>
+          <svg className={s.svg}>
               <use href={`${sp}#user`}></use>
             </svg>
             <Field
