@@ -1,5 +1,6 @@
 import s from '../Wallet/Currency.module.css';
 import { useState, useEffect } from 'react';
+import Media from 'react-media';
 
 export const Currency = () => {
 
@@ -9,15 +10,16 @@ export const Currency = () => {
 
   function fetchCurrencyAPI() {
     return (
-      fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5').then((response) => response.json())
+      fetch('https://api.monobank.ua/bank/currency').then((response) => response.json())
         .then((data) => data).catch(e => e.message));
   };
 
   useEffect(() => {
     fetchCurrencyAPI().then((data) => {
+      // console.log('DATA', data);
       
-      setEUR({ buy: Number(data[0].buy).toFixed(2), sale: Number(data[0].sale).toFixed(2)});
-      setUSD({ buy: Number(data[1].buy).toFixed(2), sale: Number(data[1].sale).toFixed(2) });
+      setEUR({ buy: Number(data[1].rateBuy).toFixed(2), sale: Number(data[0].rateSell).toFixed(2)});
+      setUSD({ buy: Number(data[0].rateBuy).toFixed(2), sale: Number(data[1].rateSell).toFixed(2)});
       
       })  
     }, [])
