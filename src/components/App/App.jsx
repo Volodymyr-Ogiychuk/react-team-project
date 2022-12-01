@@ -2,6 +2,8 @@ import React from 'react';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navigation from 'components/Navigation/Navigation';
+import {Currency} from 'components/Wallet/Currency';
+
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 
@@ -17,7 +19,6 @@ const Login = lazy(() => import('../Auth/Login'));
 const Wallet = lazy(() => import('../Wallet/Wallet'));
 const Statistics = lazy(() => import('../Wallet/Statistics'));
 const Transactions = lazy(() => import('../Wallet/Transactions'));
-
 
 
 export const App = () => {
@@ -68,6 +69,14 @@ export const App = () => {
             element={
               <PrivateRoute>
               <Statistics />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="currency"
+            element={
+              <PrivateRoute>
+              <Currency />
               </PrivateRoute>
             }
           />
