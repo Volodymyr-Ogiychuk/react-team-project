@@ -1,4 +1,8 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { compareDesc, format, parseISO } from 'date-fns';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   getCategories,
   getTransactions,
@@ -6,26 +10,31 @@ import {
 import {
   selectCategories,
   selectTransactions,
+  selectModalStatus,
+  selectError,
 } from 'redux/transactions/transactions-selectors';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { selectModalStatus } from 'redux/transactions/transactions-selectors';
 import { toggleModal } from 'redux/transactions/transactions-slice';
 import { ModalAddTransaction } from './ModalAddTransaction';
 
-// Логіка фільтрації транзакцій реалізується в цьому компоненті, зверху мають бути найсвіжіші транзакції за датою
 // Продумана max-height: 60vh; (наприклад, а далі включається скролл всередині компонента, скільки vh проговорити це з автором DashboardPage)
 
 const Transactions = () => {
   const isModalOpen = useSelector(selectModalStatus);
   const categories = useSelector(selectCategories);
   const transactionsData = useSelector(selectTransactions);
+  const isError = useSelector(selectError);
   const dispatch = useDispatch();
+
+  const sortedTransactions = [...transactionsData].sort((a, b) =>
+    compareDesc(parseISO(a.transactionDate), parseISO(b.transactionDate))
+  );
 
   useEffect(() => {
     dispatch(getTransactions());
     dispatch(getCategories());
   }, [dispatch]);
+
+  !!isError && toast.error(isError);
 
   return (
     <>
@@ -41,7 +50,7 @@ const Transactions = () => {
           </tr>
         </thead>
         <tbody>
-          {transactionsData.map(
+          {sortedTransactions.map(
             ({
               id,
               transactionDate,
@@ -52,10 +61,15 @@ const Transactions = () => {
               balanceAfter,
             }) => (
               <tr key={id}>
-                <td style={{ padding: '5px' }}>{transactionDate}</td>
+                <td style={{ padding: '5px' }}>
+                  {format(parseISO(transactionDate), 'dd.MM.yyyy')}
+                </td>
                 <td style={{ padding: '5px' }}>{type}</td>
                 <td style={{ padding: '5px' }}>
-                {categories.find(category => category.id === categoryId)?.name}
+                  {
+                    categories.find(category => category.id === categoryId)
+                      ?.name
+                  }
                 </td>
                 <td style={{ padding: '5px' }}>{comment}</td>
                 <td style={{ padding: '5px' }}>{Math.abs(amount)}</td>
@@ -65,26 +79,21 @@ const Transactions = () => {
           )}
         </tbody>
       </table>
-      <button type="button" onClick={() => dispatch(toggleModal())}>
+      <button
+        type="button"
+        aria-label="add transaction button"
+        onClick={() => dispatch(toggleModal())}
+      >
         Add Transaction
       </button>
       {isModalOpen && <ModalAddTransaction />}
+
+      <ToastContainer />
     </>
   );
 };
 
 export default Transactions;
-
-/* 
-  
-  Paste to Dashboard to load transactions on component mount:
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTransactions());
-  }, [dispatch]);
-
- */
 
 // <div className="transaction-wrap">
 //   <div className="transaction-header" style={{ display: 'flex' }}>
