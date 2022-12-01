@@ -9,6 +9,16 @@ const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
+const handleFulfiled = (state, { payload }) => {
+  state.error = null;
+  state.isLoading = false;
+  state.categoriesSummary = payload.categoriesSummary;
+  state.incomeSummary = payload.incomeSummary;
+  state.expenseSummary = payload.expenseSummary;
+  state.periodTotal = payload.periodTotal;
+  state.year = payload.year;
+  state.month = payload.month;
+};
 const statisticsSlice = createSlice({
   name: 'statistics',
   initialState: {
@@ -24,16 +34,7 @@ const statisticsSlice = createSlice({
   extraReducers: {
     [getTransactionsSummary.pending]: handlePending,
     [getTransactionsSummary.rejected]: handleRejected,
-    [getTransactionsSummary.fulfilled]: (state, { payload }) => {
-      state.error = null;
-      state.isLoading = false;
-      state.categoriesSummary = payload.categoriesSummary;
-      state.incomeSummary = payload.incomeSummary;
-      state.expenseSummary = payload.expenseSummary;
-      state.periodTotal = payload.periodTotal;
-      state.year = payload.year;
-      state.month = payload.month;
-    },
+    [getTransactionsSummary.fulfilled]: handleFulfiled,
   },
 });
 

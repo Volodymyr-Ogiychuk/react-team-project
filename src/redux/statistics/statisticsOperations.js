@@ -2,26 +2,29 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://wallet.goit.ua/api/';
-
 export const getTransactionsSummary = createAsyncThunk(
-  'transactions-summary',
-  async (_, thunkAPI) => {
-    try {
-      const { data } = await axios.get('transactions-summary');
-      return data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
-export const getTransactionsTime = createAsyncThunk(
   'transactions-summary-time',
   async (data, thunkAPI) => {
+    console.log(data);
     const { month, year } = data;
     try {
-      const { data } = await axios.get(
-        `transactions-summary?month=${month}&year=${year}`
-      );
+      const { data } = await axios.get(`transactions-summary`, {
+        params:
+          !month && !year
+            ? {}
+            : !month
+            ? {
+                year,
+              }
+            : !year
+            ? {
+                month,
+              }
+            : {
+                month,
+                year,
+              },
+      });
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
