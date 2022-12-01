@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCurrentUser } from 'redux/AuthRedux/operations';
 // import { fetchCurrentUser } from 'redux/operations/operations';
+// eslint-disable-next-line
+import css from './App.module.css';
 
 const Register = lazy(() => import('../Auth/Register'));
 const Login = lazy(() => import('../Auth/Login'));
