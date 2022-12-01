@@ -1,5 +1,3 @@
-// Зробити валідацію поля форми, використовувати: 1) бібліотеку formik та yup або 2) indicative. Обов'язковою має бути тільки сума транзакції,
-
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,7 +48,7 @@ export function ModalAddTransaction() {
       categoryId: '',
     },
     validationSchema: yup.object({
-      type: yup.bool().required('Required'),
+      type: yup.bool(),
       amount: yup.number().required('Required'),
       comment: yup.string().max(40, '40 characters max'),
       categoryId: yup.string().required('Required'),
@@ -79,30 +77,35 @@ export function ModalAddTransaction() {
           onClick={() => dispatch(toggleModal())}
           type="button"
           aria-label="close button"
-        >
-          X
-        </button>
+        ></button>
 
         <form className={s.modalForm} onSubmit={handleSubmit}>
-          <h2>Add transaction</h2>
+          <h2 className={s.modalTitle}>Add transaction</h2>
 
-          <span className={values.type ? s.inactive : s.income}>Income</span>
-          <input
-            name="type"
-            type="checkbox"
-            checked={values.type}
-            onChange={handleChange}
-          />
-          <span className={values.type ? s.expense : s.inactive}>Expense</span>
+          <div className={s.typeWrapper}>
+            <div className={values.type ? s.inactive : s.income}>Income</div>
+            <label className={s.typeLabel}>
+              <input
+                className={s.typeCheckbox}
+                name="type"
+                type="checkbox"
+                checked={values.type}
+                onChange={handleChange}
+              />
+              <div className={s.customCheckbox}></div>
+            </label>
+            <div className={values.type ? s.expense : s.inactive}>Expense</div>
+          </div>
 
           {values.type && (
             <select
+              className={s.select}
               name="categoryId"
               value={values.categoryId}
               onChange={handleChange}
               required
             >
-              <option value="" disabled hidden>
+              <option className={s.selectPlaceholder} value="" disabled hidden>
                 Select your option
               </option>
               {categories.map(category =>
@@ -118,30 +121,34 @@ export function ModalAddTransaction() {
             <div>{errors.categoryId}</div>
           ) : null}
 
-          <input
-            name="amount"
-            type="text"
-            placeholder="0.00"
-            value={values.amount}
-            onChange={handleChange}
-            required
-          />
-          {touched.amount && errors.amount ? <div>{errors.amount}</div> : null}
+          <div className={s.amountAndDate}>
+            <input
+              className={s.amountInput}
+              name="amount"
+              type="text"
+              placeholder="0.00"
+              value={values.amount}
+              onChange={handleChange}
+              required
+            />
+            {touched.amount && errors.amount ? (
+              <div>{errors.amount}</div>
+            ) : null}
 
-          <DatePicker
-            selected={startDate}
-            dateFormat="dd.MM.yyyy"
-            calendarStartDay={1}
-            onChange={date => {
-              setStartDate(date);
-            }}
-            customInput={<CustomDatePicker />}
-          />
+            <DatePicker
+              selected={startDate}
+              dateFormat="dd.MM.yyyy"
+              calendarStartDay={1}
+              onChange={setStartDate}
+              customInput={<CustomDatePicker />}
+            />
+          </div>
 
           <input
+            className={s.commentInput}
             name="comment"
             type="text"
-            placeholder="Your comment"
+            placeholder="Comment"
             value={values.comment}
             onChange={handleChange}
           />
@@ -149,9 +156,15 @@ export function ModalAddTransaction() {
             <div>{errors.comment}</div>
           ) : null}
 
-          <div>
-            <button type="submit">Add</button>
-            <button type="button" onClick={() => dispatch(toggleModal())}>
+          <div className={s.btnWrapper}>
+            <button className={s.addBtn} type="submit">
+              Add
+            </button>
+            <button
+              className={s.cancelBtn}
+              type="button"
+              onClick={() => dispatch(toggleModal())}
+            >
               Cancel
             </button>
           </div>
