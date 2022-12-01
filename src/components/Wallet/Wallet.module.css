@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(25px);
+  height: 100vh;
+  padding-top: 40px;
+}
+
+@media screen and (min-width: 768px) {
+  .bar {
+    display: flex;
+  }
+  .container {
+    flex-direction: column;
+    
+  }
+}
+@media screen and (min-width: 1200px) {
+  .bar {
+    flex-direction: column;
+    padding-left: 18px;
+    padding-right: 70px;
+   
+  }
+  .container {
+    flex-direction: row;
+  }
+}
