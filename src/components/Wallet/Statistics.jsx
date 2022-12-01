@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-
+import Select from 'react-select';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTransactionsSummary } from 'redux/statistics/statisticsOperations';
@@ -18,11 +18,47 @@ const Statistics = () => {
   const expense = useSelector(expenseSummary);
   const income = useSelector(incomeSummary);
 
-  let dataStatistics = [];
+  const [selectedMounth, setSelectedMounth] = useState(null);
+  const [selectedYear, setSelectedYear] = useState({
+    value: '2022',
+    label: '2022',
+  });
+
   const dispatch = useDispatch();
+  let dataStatistics = [];
+
   useEffect(() => {
-    dispatch(getTransactionsSummary());
-  }, [dispatch]);
+    const timeSelected = {
+      month: selectedMounth ? selectedMounth.value : 0,
+      year: selectedYear.value,
+    };
+    console.log(timeSelected);
+    dispatch(getTransactionsSummary(timeSelected));
+  }, [selectedMounth, selectedYear, dispatch]);
+
+  const optionsMounth = [
+    { value: '1', label: 'January' },
+    { value: '2', label: 'February' },
+    { value: '3', label: 'March' },
+    { value: '4', label: 'April' },
+    { value: '5', label: 'May' },
+    { value: '6', label: 'June' },
+    { value: '7', label: 'July' },
+    { value: '8', label: 'August' },
+    { value: '9', label: 'September' },
+    { value: '10', label: 'October' },
+    { value: '11', label: 'November' },
+    { value: '12', label: 'December' },
+    { value: '', label: 'All' },
+  ];
+  const optionsYear = [
+    { value: '2022', label: '2022' },
+    { value: '2021', label: '2021' },
+    { value: '2020', label: '2020' },
+    { value: '2019', label: '2019' },
+    { value: '2018', label: '2018' },
+    { value: '0', label: 'All' },
+  ];
 
   const data = {
     labels: [
@@ -61,7 +97,16 @@ const Statistics = () => {
     <>
       <h1>Statistics</h1>
       <Doughnut data={data} />
-
+      <Select
+        onChange={setSelectedMounth}
+        options={optionsMounth}
+        placeholder="Mounth"
+      />
+      <Select
+        onChange={setSelectedYear}
+        options={optionsYear}
+        placeholder="Year"
+      />
       <table>
         <tbody>
           <tr>
@@ -70,7 +115,6 @@ const Statistics = () => {
           </tr>
           {stateStatistics.map(({ name, type, total }) => {
             dataStatistics.push(total);
-
             return type !== 'INCOME' ? (
               <tr key={name}>
                 <td>{name}</td>
