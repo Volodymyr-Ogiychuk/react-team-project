@@ -1,15 +1,16 @@
 import Media from 'react-media';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   getAuthUser,
   getAuthIsLoggedIn,
 } from '../../redux/AuthRedux/selectors';
-import { ResetApi } from '../../redux/AuthRedux/operations';
 import { NavLink } from 'react-router-dom';
 import s from './Navigation.module.css';
 import sprite from './sprite.svg';
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
+import { useState } from 'react';
+import { ModalLogOut } from 'components/Wallet/ModalLogout';
 
 const mediaQueries = {
   response: '(max-width: 479px)',
@@ -19,7 +20,7 @@ const mediaQueries = {
 };
 
 export default function Navigation() {
-  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const username = useSelector(getAuthUser);
   const isLoggedIn = useSelector(getAuthIsLoggedIn);
 
@@ -49,7 +50,7 @@ export default function Navigation() {
                 </Media>
                 <button
                   className={s.button}
-                  onClick={() => dispatch(ResetApi())}
+                  onClick={() => setIsModalOpen(true)}
                   type="button"
                 >
                   <svg className={s.exitSvg}>
@@ -63,6 +64,7 @@ export default function Navigation() {
                     }
                   </Media>
                 </button>
+                {isModalOpen && <ModalLogOut setIsModalOpen={setIsModalOpen} />}
               </div>
             </div>
           </header>
