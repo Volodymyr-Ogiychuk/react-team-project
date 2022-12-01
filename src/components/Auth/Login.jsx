@@ -13,19 +13,19 @@ const Login = () => {
     <div className={s.section}>
       <div className={s.aside}>
         <img src={login} alt="login" className={s.image} />
-        <div className={s.widget}>
-          <svg className={s.widget_svg}>
-            <use href={`${sp}#Elipse1`}></use>
-          </svg>
-        </div>
         <h2 className={s.title}>Finance App</h2>
       </div>
+      <div className={s.widget}>
+        <svg className={s.widget_svg}>
+          <use href={`${sp}#Elipse1`}></use>
+        </svg>
+      </div>
+      <div className={s.sidebar}>
+        <svg className={s.sidebar_svg}>
+          <use href={`${sp}#Elipse`}></use>
+        </svg>
+      </div>
       <div className={s.body}>
-        <div className={s.sidebar}>
-          <svg className={s.sidebar_svg}>
-            <use href={`${sp}#Elipse`}></use>
-          </svg>
-        </div>
         <div className={s.box}>
           <div className={s.logo}>
             <svg className={s.logoSvg}>

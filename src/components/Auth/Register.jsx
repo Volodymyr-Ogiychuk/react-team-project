@@ -1,6 +1,6 @@
 import { Formik, Field, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
-
+import register from '../../images/currency/register.png';
 import { useDispatch } from 'react-redux';
 import { RegisterApi } from 'redux/AuthRedux/operations';
 import sprite from '../Navigation/sprite.svg';
@@ -11,6 +11,22 @@ const Register = () => {
   const dispatch = useDispatch();
 
   return (
+    <div className={s.section}>
+       <div className={s.aside}>
+        <img src={register} alt="register" className={s.image} />
+        <h2 className={s.title}>Finance App</h2>
+      </div>
+      <div className={s.widget}>
+        <svg className={s.widget_svg}>
+          <use href={`${sp}#Elipse1`}></use>
+        </svg>
+      </div>
+      <div className={s.sidebar}>
+        <svg className={s.sidebar_svg}>
+          <use href={`${sp}#Elipse`}></use>
+        </svg>
+      </div>
+      <div className={s.body}>
     <div className={s.box}>
       <div className={s.logo}>
         <svg className={s.logoSvg}>
@@ -82,6 +98,7 @@ const Register = () => {
               className={s.field}
               placeholder="Confirm password"
             />
+            <div className={s.block_check}></div>
           </label>
           <label>
           <svg className={s.svg}>
@@ -103,6 +120,8 @@ const Register = () => {
           </NavLink>
         </Form>
       </Formik>
+    </div>
+    </div>
     </div>
   );
 };
