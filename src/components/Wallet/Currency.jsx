@@ -1,6 +1,6 @@
 import s from '../Wallet/Currency.module.css';
 import { useState, useEffect } from 'react';
-import Media from 'react-media';
+// import Media from 'react-media';
 
 export const Currency = () => {
 
