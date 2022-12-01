@@ -23,13 +23,18 @@ export function ModalLogOut({ setIsModalOpen }) {
     }
   }
 
+const handleModalClose = () => {
+  dispatch(ResetApi());
+  setIsModalOpen(false);
+}
+
   return (
     <div className={s.backdrop} onClick={closeOnOverlay}>
       <div className={s.modal}>
         <form className={s.modalForm}>
           <h2>Are you sure</h2>
           <div>
-            <button type="button" onClick={() => dispatch(ResetApi())}>
+            <button type="button" onClick={handleModalClose}>
               Exit
             </button>
             <button type="button" onClick={() => setIsModalOpen()}>
