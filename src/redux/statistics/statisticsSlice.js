@@ -12,53 +12,7 @@ const handleRejected = (state, action) => {
 const statisticsSlice = createSlice({
   name: 'statistics',
   initialState: {
-    categoriesSummary: [
-      {
-        name: 'Basic expenses',
-        type: 'INCOME',
-        total: 200,
-      },
-      {
-        name: 'Products',
-        type: 'INCOME',
-        total: 400,
-      },
-      {
-        name: 'Car',
-        type: 'INCOME',
-        total: 300,
-      },
-      {
-        name: 'Self care',
-        type: 'INCOME',
-        total: 500,
-      },
-      {
-        name: 'Child care',
-        type: 'INCOME',
-        total: 600,
-      },
-      {
-        name: 'Household products',
-        type: 'INCOME',
-        total: 700,
-      },
-      {
-        name: 'Education',
-        type: 'INCOME',
-        total: 800,
-      },
-      {
-        name: 'Leisure',
-        type: 'INCOME',
-        total: 900,
-      },
-      {
-        name: 'Other expenses',
-        type: 'INCOME',
-        total: 50,
-      },
-    ],
+    categoriesSummary: [],
     incomeSummary: null,
     expenseSummary: null,
     periodTotal: null,
@@ -73,12 +27,12 @@ const statisticsSlice = createSlice({
     [getTransactionsSummary.fulfilled]: (state, { payload }) => {
       state.error = null;
       state.isLoading = false;
-      //   state.categoriesSummary = payload.categoriesSummary;
-      //   state.incomeSummary = payload.incomeSummary;
-      //   state.expenseSummary = payload.expenseSummary;
-      //   state.periodTotal = payload.periodTotal;
-      //   state.year = payload.year;
-      //   state.month = payload.month;
+      state.categoriesSummary = payload.categoriesSummary;
+      state.incomeSummary = payload.incomeSummary;
+      state.expenseSummary = payload.expenseSummary;
+      state.periodTotal = payload.periodTotal;
+      state.year = payload.year;
+      state.month = payload.month;
     },
   },
 });
