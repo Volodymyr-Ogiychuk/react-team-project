@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Currency } from './Currency';
 import Media from 'react-media';
 import s from '../Navigation/Navigation.module.css';
+import css from '../Wallet/Wallet.module.css';
 import sprite from '../Navigation/sprite.svg';
 import { useDispatch } from 'react-redux';
 import { getTransactions } from 'redux/transactions/transactions-operations';
@@ -20,8 +21,8 @@ const Wallet = () => {
     dispatch(getTransactions());
   }, [dispatch]);
   return (
-    <>
-      {/* <div>Wallet</div> */}
+    <section className={css.container}>
+      <div className={css.bar} >
       <ul className={s.nav}>
         <li className={s.navItem}>
           <NavLink
@@ -75,10 +76,13 @@ const Wallet = () => {
       <Media queries={mediaQueries}>
         {matches => (matches.tablet || matches.desktop) && <Currency />}
       </Media>
-      <Suspense>
-        <Outlet />
-      </Suspense>
-    </>
+      </div>
+      <div>
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </div>
+    </section>
   );
 };
 
