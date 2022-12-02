@@ -11,6 +11,7 @@ import {
   incomeSummary,
 } from 'redux/statistics/statisticsSelectors';
 import s from '../Wallet/Statistics.module.css';
+import { getAuthBalance } from 'redux/AuthRedux/selectors';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,6 +19,7 @@ const Statistics = () => {
   const stateStatistics = useSelector(categoriesSummary);
   const expense = useSelector(expenseSummary);
   const income = useSelector(incomeSummary);
+  const balance = useSelector(getAuthBalance);
 
   const [selectedMounth, setSelectedMounth] = useState(null);
   const [selectedYear, setSelectedYear] = useState({
@@ -87,20 +89,29 @@ const Statistics = () => {
     const isData = stateStatistics.length;
     return isData ? (
       <table className={s.table}>
-        <thead>
-          <tr className={s.tableHead}>
-            <th className={s.tableCategory}>Category</th>
-            <th className={s.tableSumm}>Sum</th>
+        <thead className={s.tableHeader}>
+          <tr>
+            <th className={s.tableHeaderData}>Category</th>
+            <th className={s.tableHeaderData}>Sum</th>
           </tr>
         </thead>
         <tbody>
-          {stateStatistics.map(({ name, type, total }) => {
+          {stateStatistics.map(({ name, type, total }, idx) => {
             dataStatistics.push(total);
+
             // data.labels.push(name);
             return type !== 'INCOME' ? (
-              <tr className={s.tableTr} key={name}>
-                <td className={s.tableCategory}>{name}</td>
-                <td className={s.tableSumm}>{total}</td>
+              <tr key={name}>
+                <td
+                  className={`${s.tableData} ${idx === 0 && s.firstTableData}`}
+                >
+                  {name}
+                </td>
+                <td
+                  className={`${s.tableData} ${idx === 0 && s.firstTableData}`}
+                >
+                  {total}
+                </td>
               </tr>
             ) : null;
           })}
@@ -120,23 +131,44 @@ const Statistics = () => {
       <h2>Sorry</h2>
     );
   };
+
   return (
     <div className={s.container}>
       <h1 className={s.statisticsHeading}>Statistics</h1>
       <div className={s.statisticsBox}>
         <div className={s.canvasBox}>
-          <h2 className={s.canvasSumm}>₴ 24.00</h2>
+          <h2 className={s.canvasSumm}>₴ {balance}</h2>
           <Doughnut data={data} />
         </div>
         <div>
           <div className={s.selectBox}>
             <Select
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: 'transparent',
+                  border: '1px solid #000000',
+                  borderRadius: '30px',
+                  height: '50px',
+                  outline: 'none !important',
+                }),
+              }}
               className={s.select}
               onChange={setSelectedMounth}
               options={optionsMounth}
               placeholder="Mounth"
             />
             <Select
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: 'transparent',
+                  border: '1px solid #000000',
+                  borderRadius: '30px',
+                  height: '50px',
+                  outline: 'none !important',
+                }),
+              }}
               className={s.select}
               onChange={setSelectedYear}
               options={optionsYear}
