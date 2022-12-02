@@ -91,6 +91,11 @@ const Wallet = () => {
       </section>
       <Media queries={mediaQueries}>
         {matches =>
+          (matches.tablet || matches.desktop) && <AddTransactionBtn />
+        }
+      </Media>
+      <Media queries={mediaQueries}>
+        {matches =>
           (matches.mobile || matches.response) &&
           !isTransactionModalOpen && <AddTransactionBtn />
         }

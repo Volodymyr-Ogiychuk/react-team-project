@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { compareDesc, format, parseISO } from 'date-fns';
 import { ToastContainer, toast } from 'react-toastify';
@@ -45,6 +45,12 @@ const Transactions = () => {
   const isError = useSelector(selectError);
   const dispatch = useDispatch();
 
+  // ckecking user's device:
+  const [isMobile, setIsMobile] = useState(false);
+  window.matchMedia('(max-width: 767px)').addEventListener('change', e => {
+    e.matches ? setIsMobile(true) : setIsMobile(false);
+  });
+
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
@@ -55,7 +61,7 @@ const Transactions = () => {
 
   !!isError && toast.error(isError);
 
-  bodyScrollLock(isModalOpen);
+  isMobile && bodyScrollLock(isModalOpen);
 
   return (
     <section className={s.transactions}>
