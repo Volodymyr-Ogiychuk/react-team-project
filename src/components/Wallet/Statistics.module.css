@@ -1,0 +1,289 @@
+@media screen and (max-width: 767.99px) {
+  .container {
+    padding: 20px;
+    /* padding: 32px 16px 0 69px; */
+  }
+  .statisticsBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .statisticsHeading {
+    /* font-family: 'Poppins'; */
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 0.66;
+  }
+  .canvasBox {
+    position: relative;
+    width: 280px;
+    margin-bottom: 32px;
+  }
+  .canvasSumm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -100%);
+
+    /* font-family: 'Circe'; */
+    /* font-style: normal; */
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .selectBox {
+    max-width: 280px;
+  }
+  .select {
+    margin: 0 auto;
+    width: 280px;
+    height: 50px;
+    margin-bottom: 20px;
+
+    /* font-family: 'Circe'; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 0.58;
+  }
+  .select:last-child {
+    margin-bottom: 0px;
+  }
+  .table {
+    width: 100%;
+  }
+  .tableHead {
+    height: 50px;
+    width: 280px;
+    /* border: 1px solid #000000;
+  border-radius: 30px;
+  background-color: white; */
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .tableTr {
+    padding: 18px 0 16px 0;
+    line-height: 20px;
+  }
+  .tableCategory {
+    text-align: left;
+  }
+  .tableSumm {
+    text-align: right;
+    /* border: 1px solid black;
+  border-top-right-radius: 50px; */
+  }
+  .tableSummIncome {
+    text-align: right;
+    color: rgba(36, 204, 167, 1);
+  }
+  .tableSummExpence {
+    text-align: right;
+    color: rgba(255, 101, 150, 1);
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .container {
+    padding: 32px;
+    /* padding: 32px 16px 0 69px; */
+  }
+  .statisticsBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .statisticsHeading {
+    /* font-family: 'Poppins'; */
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 0.66;
+  }
+  .canvasBox {
+    position: relative;
+    width: 336px;
+    margin-bottom: 32px;
+  }
+  .canvasSumm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+
+    /* font-family: 'Circe'; */
+    /* font-style: normal; */
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .selectBox {
+    max-width: 336px;
+    display: flex;
+    margin-bottom: 20px;
+  }
+  .select {
+    margin: 0 auto;
+    width: 160px;
+    height: 50px;
+    margin-right: 16px;
+
+    /* font-family: 'Circe'; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 0.58;
+  }
+  .select:last-child {
+    margin-right: 0;
+  }
+  .table {
+    width: 100%;
+    border-spacing: 0;
+  }
+  .tableHead {
+    height: 50px;
+    width: 280px;
+    /* border: 1px solid #000000;
+  border-radius: 30px;
+  background-color: white; */
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .tableTr {
+    padding: 18px 0 16px 0;
+    line-height: 20px;
+  }
+  .tableCategory {
+    text-align: left;
+  }
+  .tableSumm {
+    text-align: right;
+    /* border: 1px solid black;
+  border-top-right-radius: 50px; */
+  }
+  .tableSummIncome {
+    text-align: right;
+    color: rgba(36, 204, 167, 1);
+  }
+  .tableSummExpence {
+    text-align: right;
+    color: rgba(255, 101, 150, 1);
+  }
+  .tableHeaderData {
+    padding: 15px 20px;
+    text-align: left;
+  }
+
+  .tableHeaderData:first-child {
+    border-radius: 29px 0 0 29px;
+  }
+
+  .tableHeaderData:last-child {
+    border-radius: 0 29px 29px 0;
+  }
+  .tableData {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dcdcdf;
+    border-top: 1px solid #fff;
+  }
+  .tableHeader {
+    font-size: 18px;
+    background-color: #fff;
+  }
+  .firstTableData {
+    border-top: none;
+  }
+
+  .lastTableData {
+    border-bottom: none;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .container {
+    padding: 32px;
+    /* padding: 32px 16px 0 69px; */
+  }
+  .statisticsBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .statisticsHeading {
+    /* font-family: 'Poppins'; */
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 0.66;
+  }
+  .canvasBox {
+    position: relative;
+    width: 336px;
+    margin-bottom: 32px;
+  }
+  .canvasSumm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+
+    /* font-family: 'Circe'; */
+    /* font-style: normal; */
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .selectBox {
+    max-width: 336px;
+    display: flex;
+    margin-bottom: 20px;
+  }
+  .select {
+    margin: 0 auto;
+    width: 160px;
+    height: 50px;
+    margin-right: 16px;
+
+    /* font-family: 'Circe'; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 0.58;
+  }
+  .select:last-child {
+    margin-right: 0;
+  }
+  .table {
+    width: 100%;
+  }
+  .tableHead {
+    height: 50px;
+    width: 280px;
+    /* border: 1px solid #000000;
+  border-radius: 30px;
+  background-color: white; */
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .tableTr {
+    padding: 18px 0 16px 0;
+    line-height: 20px;
+  }
+  .tableCategory {
+    text-align: left;
+  }
+  .tableSumm {
+    text-align: right;
+    /* border: 1px solid black;
+  border-top-right-radius: 50px; */
+  }
+  .tableSummIncome {
+    text-align: right;
+    color: rgba(36, 204, 167, 1);
+  }
+  .tableSummExpence {
+    text-align: right;
+    color: rgba(255, 101, 150, 1);
+  }
+}

@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { Currency } from './Currency';
+import Balance from './Balance';
 import Media from 'react-media';
 import s from '../Navigation/Navigation.module.css';
 import css from '../Wallet/Wallet.module.css';
@@ -58,7 +59,6 @@ const Wallet = () => {
                 <span className={s.navText}>Statistics</span>
               </NavLink>
             </li>
-
             <Media queries={mediaQueries}>
               {matches =>
                 (matches.mobile || matches.response) && (
@@ -79,6 +79,7 @@ const Wallet = () => {
               }
             </Media>
           </ul>
+           <Balance />
           <Media queries={mediaQueries}>
             {matches => (matches.tablet || matches.desktop) && <Currency />}
           </Media>

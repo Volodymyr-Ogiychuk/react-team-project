@@ -1,9 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { ResetApi } from '../../redux/AuthRedux/operations';
-import s from './ModalAddTransaction.module.css';
-
-
+import s from './ModalLogout.module.css';
 
 export function ModalLogOut({ setIsModalOpen }) {
   const dispatch = useDispatch();
@@ -23,22 +21,30 @@ export function ModalLogOut({ setIsModalOpen }) {
     }
   }
 
-const handleModalClose = () => {
-  dispatch(ResetApi());
-  setIsModalOpen(false);
-}
+  const handleModalClose = () => {
+    dispatch(ResetApi());
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={s.backdrop} onClick={closeOnOverlay}>
-      <div className={s.modal}>
+      <div className={s.modalContainer}>
         <form className={s.modalForm}>
-          <h2>Are you sure</h2>
+          <h2 className={s.text}>Are you sure?</h2>
           <div>
-            <button type="button" onClick={handleModalClose}>
-              Exit
+            <button
+              className={s.button}
+              type="button"
+              onClick={handleModalClose}
+            >
+              EXIT
             </button>
-            <button type="button" onClick={() => setIsModalOpen()}>
-              Cancel
+            <button
+              className={s.button}
+              type="button"
+              onClick={() => setIsModalOpen()}
+            >
+              CANCEL
             </button>
           </div>
         </form>

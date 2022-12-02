@@ -7,7 +7,13 @@ import sprite from '../Navigation/sprite.svg';
 import sp from './Auth.svg';
 import s from './Login.module.css';
 // import Media from 'react-media';
+
+// import { getAuthError } from 'redux/AuthRedux/selectors';
+import { useState } from 'react';
 const Register = () => {
+  const [chek, setChek] = useState();
+  // eslint-disable-next-line
+  // const error = useSelector(getAuthError);
   const dispatch = useDispatch();
   const handleSubmit = e => {
     const { email, username, password, userpassword } = e;
@@ -24,7 +30,24 @@ const Register = () => {
       console.log('error');
     }
   };
-
+  const handlePassword = e => {
+    const good = { width: '100%', backgroundColor: '#24cca7' };
+    const normally = { width: '45%', backgroundColor: 'orange' };
+    const badly = { width: '25%', backgroundColor: 'red' };
+    const refresh = { width: '0%', backgroundColor: '#E5F1EF' };
+    if (e.length > 0 && e.length < 2) {
+      setChek(refresh);
+    }
+    if (e.length > 3 && e.length < 5) {
+      setChek(badly);
+    }
+    if (e.length >= 6 && e.length <= 8) {
+      setChek(normally);
+    }
+    if (e.length >= 8 && e.length <= 12) {
+      setChek(good);
+    }
+  };
   return (
     <div className={s.section}>
       <div className={s.aside}>
@@ -45,12 +68,15 @@ const Register = () => {
               username: '',
               userpassword: '',
             }}
-            validate={values => {
+            validate={({ password, userpassword, email }) => {
+              if (userpassword.length === password.length) {
+                handlePassword(userpassword);
+              }
               const errors = {};
-              if (!values.email) {
+              if (!email) {
                 errors.email = 'Required';
               } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)
               ) {
                 errors.email = 'Invalid email address';
               }
@@ -99,7 +125,9 @@ const Register = () => {
                     className={s.field}
                     placeholder="Confirm password"
                   />
-                  <div className={s.block_check}></div>
+                  <div className={s.block_check}>
+                    <div style={chek} className={s.check}></div>
+                  </div>
                 </label>
               </div>
               <div className={s.inner}>

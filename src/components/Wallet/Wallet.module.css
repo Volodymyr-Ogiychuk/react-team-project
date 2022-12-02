@@ -4,26 +4,39 @@
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(25px);
   height: 100vh;
-  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 12px;
 }
+
 
 @media screen and (min-width: 768px) {
   .bar {
     display: flex;
+    padding-bottom: 20px;
+    padding-top: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
   .container {
     flex-direction: column;
-    
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
 @media screen and (min-width: 1200px) {
   .bar {
+    margin-bottom: 0;
+    padding-top: 40px;
+    padding-bottom: 0;
     flex-direction: column;
     padding-left: 18px;
     padding-right: 70px;
+    border-right: 3px groove white;
    
   }
   .container {
     flex-direction: row;
+    padding: 0;
   }
 }

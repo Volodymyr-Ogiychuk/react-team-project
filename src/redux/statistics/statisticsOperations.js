@@ -5,7 +5,6 @@ axios.defaults.baseURL = 'https://wallet.goit.ua/api/';
 export const getTransactionsSummary = createAsyncThunk(
   'transactions-summary-time',
   async (data, thunkAPI) => {
-    console.log(data);
     const { month, year } = data;
     try {
       const { data } = await axios.get(`transactions-summary`, {
