@@ -2,28 +2,41 @@
   overflow: hidden;
   position: relative;
   margin: 0 auto;
-  width: 1200px;
-  height: 720px;
+
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.aside{
-  display: flex;
-  flex-direction: column;
-  width: 435.2px;
-  height: 419.5px;
+@media screen and (min-width: 1280px){
+  .section{
+    width: 1200px;
+    height: 720px;
+  }
+  .aside{
+    display: flex;
+    flex-direction: column;
+    width: 435.2px;
+    height: 419.5px;
+  }
 }
+@media  screen and (min-width: 768px)and(max-width: 1199px){
+.section{
+  width: 768px;
+  height: 620px;
+}
+
+}
+
 .image:nth-child(1){
  z-index: 2;
   position: relative;
 }
-.image:nth-child(2){
+/* .image:nth-child(2){
  position: absolute;
 bottom: 12px;
 left: 20px;
-}
+} */
 .title{
   display: block;
   text-align: center;
@@ -63,23 +76,23 @@ z-index: 2px;
   flex-direction: column;
 }
 .field {
-
   padding-left: 40px;
   border: none;
   border-bottom: 1px solid Gray;
   width: 409.5px;
   height: 32px;
-  margin-bottom: 40px;
 }
+/* .field:hover,.field:focus,.field:active{
+  border: none;
+  border-bottom: 1px solid Gray;
+} */
 .inner {
+  margin-bottom: 40px;
   position: relative;
 }
 .field::before{
   background-color: #4a56e2;
   border-bottom: 2px solid #7c3838;
-}
-.field:nth-child(2) {
-  margin-bottom: 42px;
 }
 .button {
   cursor: pointer;
@@ -134,11 +147,18 @@ left: 5px;
   height: 18px;
 }
 .block_check{
+background-color: #898c8b;
 height: 5px;
 margin-top: 5px;
 transform: 1s;
 }
-
+.check{
+ width: 0px;
+  height: 5px;
+  background-color: #24cca7;
+ transform: 3ms ;
+ transform-style: 5ms;
+}
 .title{
  
   font-family: 'Poppins';
