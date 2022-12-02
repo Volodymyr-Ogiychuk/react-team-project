@@ -29,7 +29,7 @@ const auth = createSlice({
       state.username = action.payload.user.username;
       state.token = action.payload.token;
       state.isLoggedIn = true;
-      state.balance = action.payload.balance;
+      state.balance = action.payload.user.balance;
       state.error = null;
     },
     [RegisterApi.pending]: handlePending,
@@ -38,7 +38,7 @@ const auth = createSlice({
       state.username = action.payload.user.username;
       state.token = action.payload.token;
       state.isLoggedIn = true;
-      state.balance = action.payload.balance;
+      state.balance = action.payload.user.balance;
       state.error = null;
     },
     [ResetApi.pending]: handlePending,

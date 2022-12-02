@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchCurrentUser } from '../../redux/AuthRedux/operations';
+import { useSelector } from 'react-redux';
 import { selectTransactions } from 'redux/transactions/transactions-selectors';
 import { getAuthBalance } from '../../redux/AuthRedux/selectors';
 import s from './Balance.module.css';
+import { useState } from 'react';
 
 const Balance = () => {
-  const dispatch = useDispatch();
-  const balance = useSelector(getAuthBalance);
+  const loginBalance = useSelector(getAuthBalance);
   const transactions = useSelector(selectTransactions);
-
+  const [balance, setBalance] = useState(loginBalance);
+  const transactionBalance = transactions[transactions.length - 1]?.balanceAfter;
+ 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
-  }, [dispatch, transactions]);
+    if (transactionBalance) setBalance(transactionBalance);
+  }, [transactionBalance]);
 
   return (
     <div className={s.card}>
