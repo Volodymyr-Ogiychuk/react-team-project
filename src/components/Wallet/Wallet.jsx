@@ -79,12 +79,12 @@ const Wallet = () => {
               }
             </Media>
           </ul>
-           <Balance />
+          <Balance />
           <Media queries={mediaQueries}>
             {matches => (matches.tablet || matches.desktop) && <Currency />}
           </Media>
         </div>
-        <div>
+        <div className={css.content}>
           <Suspense>
             <Outlet />
           </Suspense>

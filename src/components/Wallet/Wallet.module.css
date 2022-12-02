@@ -14,29 +14,34 @@
   .bar {
     display: flex;
     padding-bottom: 20px;
-    padding-top: 32px;
-    padding-left: 32px;
-    padding-right: 32px;
   }
   .container {
     flex-direction: column;
+    padding-top: 32px;
     padding-left: 32px;
     padding-right: 32px;
   }
 }
 @media screen and (min-width: 1200px) {
   .bar {
+    flex-direction: column;
     margin-bottom: 0;
     padding-top: 40px;
     padding-bottom: 0;
-    flex-direction: column;
-    padding-left: 18px;
+    padding-left: 0;
     padding-right: 70px;
     border-right: 3px groove white;
    
   }
   .container {
     flex-direction: row;
-    padding: 0;
+    padding-top: 0;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .content {
+    padding-left:69px;
+    padding-top: 46px;
+
   }
 }
