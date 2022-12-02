@@ -79,11 +79,9 @@ const Wallet = () => {
         {matches => (matches.tablet || matches.desktop) && <Currency />}
       </Media>
       </div>
-      <div>
         <Suspense>
           <Outlet />
         </Suspense>
-      </div>
     </section>
   );
 };
