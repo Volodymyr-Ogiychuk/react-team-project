@@ -1,0 +1,49 @@
+.card {
+  min-width: 280px;
+  min-height: 80px;
+  padding: 8px 32px 12px 32px;
+  background-color: var(--primary-background-color);
+  border-radius: 30px;
+  margin-bottom: 0px;
+
+  @media screen and (min-width: $TabletWidth) and (max-width: $DesktopWidth) {
+    padding: 10px 40px;
+    margin-right: 20px;
+  }
+  @media screen and (min-width: $DesktopWidth) {
+    margin-bottom: 30px;
+  }
+}
+
+.title {
+  font-family: Circe, sans-serif;
+  margin-bottom: 12px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 0;
+  text-transform: uppercase;
+  color: #a6a6a6;
+}
+
+.result {
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 45px;
+  margin: 0;
+  align-items: center;
+  color: #000000;
+
+  @media (min-width: 768px) {
+    .card {
+      min-width: 336px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .card {
+      margin-bottom: 32px;
+    }
+  }
+}
