@@ -54,7 +54,6 @@ const auth = createSlice({
     [fetchCurrentUser.rejected]: handleRejected,
     [fetchCurrentUser.fulfilled](state, action) {
         state.username = action.payload.username;
-        state.token = action.payload.token;
         state.isLoggedIn = true;
         state.balance = action.payload.balance;
         state.error = null;

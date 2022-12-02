@@ -1,12 +1,12 @@
 import React from 'react';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Media from 'react-media';
 import Navigation from 'components/Navigation/Navigation';
-import {Currency} from 'components/Wallet/Currency';
+import { Currency } from 'components/Wallet/Currency';
 
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
-
 
 // import { getIsFetchingCurrent } from 'redux/store';
 import { useDispatch } from 'react-redux';
@@ -22,7 +22,6 @@ const Wallet = lazy(() => import('../Wallet/Wallet'));
 const Statistics = lazy(() => import('../Wallet/Statistics'));
 const Transactions = lazy(() => import('../Wallet/Transactions'));
 
-
 export const App = () => {
   const dispatch = useDispatch();
   // const isFetchingCurrentUser = useSelector(getIsFetchingCurrent);
@@ -33,12 +32,12 @@ export const App = () => {
   return (
     // !isFetchingCurrentUser && (
     <Routes>
-      <Route path="/" element={<Navigation/>}>
+      <Route path="/" element={<Navigation />}>
         <Route
           index
           element={
             <PublicRoute restricted redirectTo="/wallet/home">
-            <Login />
+              <Login />
             </PublicRoute>
           }
         />
@@ -46,7 +45,7 @@ export const App = () => {
           path="/register"
           element={
             <PublicRoute restricted>
-            <Register />
+              <Register />
             </PublicRoute>
           }
         />
@@ -54,40 +53,34 @@ export const App = () => {
           path="/login"
           element={
             <PublicRoute restricted redirectTo="/wallet/home">
-            <Login />
-             </PublicRoute>
+              <Login />
+            </PublicRoute>
           }
         />
         <Route
           path="/wallet"
           element={
             <PrivateRoute>
-            <Wallet />
-             </PrivateRoute>
+              <Wallet />
+            </PrivateRoute>
           }
         >
           <Route
             path="diagram"
             element={
-              <PrivateRoute>
-              <Statistics />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="currency"
-            element={
-              <PrivateRoute>
-              <Currency />
-              </PrivateRoute>
+                <Statistics />
             }
           />
           <Route
             path="home"
             element={
-              <PrivateRoute>
-              <Transactions />
-              </PrivateRoute>
+                <Transactions />
+            }
+          />
+          <Route
+            path="currency"
+            element={
+              <Media query="(max-width: 767px)" render={() => <Currency />} />
             }
           />
         </Route>
