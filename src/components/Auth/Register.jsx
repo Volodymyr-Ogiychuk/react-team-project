@@ -1,19 +1,19 @@
 import { Formik, Field, Form } from 'formik';
 import { NavLink } from 'react-router-dom';
 import register from '../../images/currency/register.png';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RegisterApi } from 'redux/AuthRedux/operations';
 import sprite from '../Navigation/sprite.svg';
 import sp from './Auth.svg';
 import s from './Login.module.css';
 // import Media from 'react-media';
 
-import { getAuthError } from 'redux/AuthRedux/selectors';
+// import { getAuthError } from 'redux/AuthRedux/selectors';
 import { useState } from 'react';
 const Register = () => {
   const [chek, setChek] = useState();
   // eslint-disable-next-line
-  const error = useSelector(getAuthError);
+  // const error = useSelector(getAuthError);
   const dispatch = useDispatch();
   const handleSubmit = e => {
     const { email, username, password, userpassword } = e;
@@ -31,18 +31,21 @@ const Register = () => {
     }
   };
   const handlePassword = e => {
-    console.log(e);
-    if (e === '') {
-      setChek({ width: '0%' });
+    const good = { width: '100%', backgroundColor: '#24cca7' };
+    const normally = { width: '45%', backgroundColor: 'orange' };
+    const badly = { width: '25%', backgroundColor: 'red' };
+    const refresh = { width: '0%', backgroundColor: '#E5F1EF' };
+    if (e.length > 0 && e.length < 2) {
+      setChek(refresh);
     }
-    if (e.length > 0 && e.length < 5) {
-      setChek({ width: '0%' });
+    if (e.length > 3 && e.length < 5) {
+      setChek(badly);
     }
     if (e.length >= 6 && e.length <= 8) {
-      setChek({ width: '30%' });
+      setChek(normally);
     }
     if (e.length >= 8 && e.length <= 12) {
-      setChek({ width: '70%' });
+      setChek(good);
     }
   };
   return (
@@ -66,8 +69,7 @@ const Register = () => {
               userpassword: '',
             }}
             validate={({ password, userpassword, email }) => {
-              if (userpassword) {
-                console.log(userpassword === "");
+              if (userpassword.length === password.length) {
                 handlePassword(userpassword);
               }
               const errors = {};
