@@ -108,128 +108,96 @@
 /* Header */
 
 .header {
-  /* position: absolute; */
-   display: flex;
-  flex-direction: column;
   height: 60px;
-  background-color: #ffffff;
-  z-index: 10;
-  
-}
-
-.mainContainer {
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-}
-
-.logoContainer {
+  align-items: center;
   padding-left: 20px;
-  padding-top: 15px;
+  padding-right: 20px;
+  background-color: #ffffff;
 }
 
 .logoSvg {
-  width: 120px;
+  width: 30px;
   height: 30px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.logoText {
+  margin-left: 15px;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .authContainer {
   display: flex;
-  position: relative;
+  align-items: center;
+  color: #bdbdbd;
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
 }
 
 .name {
+  margin: 0;
+  font-family: 'Circe';
   padding-right: 8px;
-  font-size: 18px;
-  line-height: 27px;
   color: #bdbdbd;
 }
 
 .button {
-  height: fit-content;
+  display: flex;
+  align-items: center;
+  color: #bdbdbd;
+  padding: unset;
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
 
-.exitSvg {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  right: 30px;
-  top: 21px;
-  fill: #bdbdbd;
-  transition: all 250ms ease;
-}
-
-.button:hover .exitSvg,
-.button:focus .exitSvg {
-  fill: #ff6596;
-}
-
-@media screen and (min-width: 480px) {
-  .mainContainer {
-    width: 480px;
+@media screen and (max-width: 767px) {
+  .exit {
+    display: none;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .mainContainer {
-    width: 768px;
-  }
-
   .header {
     height: 80px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
-
-  .logoContainer {
-    padding-left: 32px;
-    padding-top: 20px;
-  }
-
   .logoSvg {
-    width: 160px;
+    width: 40px;
     height: 40px;
   }
-
- 
-
+  .logoText {
+    font-size: 30px;
+    margin-left: 20px;
+  }
   .name {
-    padding-right: 14px;
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid;
   }
-
-  .lineSvg {
-    width: 2px;
-    height: 30px;
-    position: absolute;
-    right: 117px;
-    top: 22px;
-  }
-
-  .exitSvg {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    right: 90px;
-    top: 27px;
-  }
-
   .exit {
-    padding-left: 30px;
+    padding-left: 8px;
     font-size: 18px;
     line-height: 27px;
     color: #bdbdbd;
     transition: all 250ms ease;
   }
-
-  .button:hover .exit,
-  .button:focus .exit {
-    color: #ff6596;
-  }
 }
 
 @media screen and (min-width: 1280px) {
-  .mainContainer {
-    width: 1280px;
+  .header {
+    padding-left: 85px;
+    padding-right: 85px;
   }
 }
