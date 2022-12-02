@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toggleModal } from 'redux/transactions/transactions-slice';
 import { useEffect, useState } from 'react';
 import * as yup from 'yup';
@@ -10,16 +10,19 @@ import {
   addTransaction,
   getCategories,
 } from 'redux/transactions/transactions-operations';
-import { selectCategories } from 'redux/transactions/transactions-selectors';
 import { CustomDatePicker } from './CustomDatePicker';
+import { ModalSelect } from './ModalSelect';
 
 export function ModalAddTransaction() {
   const [startDate, setStartDate] = useState(new Date());
+  const [categoryId, setCategoryId] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
+
+  // Close modal on ESC logic:
 
   useEffect(() => {
     const closeOnEsc = e => {
@@ -32,29 +35,29 @@ export function ModalAddTransaction() {
     return () => document.removeEventListener('keydown', closeOnEsc);
   }, [dispatch]);
 
+  // Close modal on overlay click logic:
+
   function closeOnOverlay(e) {
     if (e.target === e.currentTarget) {
       dispatch(toggleModal());
     }
   }
 
-  const categories = useSelector(selectCategories);
+  // formik setup:
 
   const formik = useFormik({
     initialValues: {
       type: true,
       amount: '',
       comment: '',
-      categoryId: '',
     },
     validationSchema: yup.object({
       type: yup.bool(),
       amount: yup.number().required('Required'),
       comment: yup.string().max(40, '40 characters max'),
-      categoryId: yup.string().required('Required'),
     }),
 
-    onSubmit: ({ categoryId, type, amount, comment }) => {
+    onSubmit: ({ type, amount, comment }) => {
       const newTransaction = {
         transactionDate: startDate,
         comment,
@@ -97,26 +100,7 @@ export function ModalAddTransaction() {
             <div className={values.type ? s.expense : s.inactive}>Expense</div>
           </div>
 
-          {values.type && (
-            <select
-              className={s.select}
-              name="categoryId"
-              value={values.categoryId}
-              onChange={handleChange}
-              required
-            >
-              <option className={s.selectPlaceholder} value="" disabled hidden>
-                Select your option
-              </option>
-              {categories.map(category =>
-                category.type === 'EXPENSE' ? (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ) : null
-              )}
-            </select>
-          )}
+          {values.type && <ModalSelect setCategoryId={setCategoryId} />}
           {touched.categoryId && errors.categoryId ? (
             <div>{errors.categoryId}</div>
           ) : null}
@@ -144,7 +128,7 @@ export function ModalAddTransaction() {
             />
           </div>
 
-          <input
+          <textarea
             className={s.commentInput}
             name="comment"
             type="text"
