@@ -9,15 +9,16 @@ const Balance = () => {
   const loginBalance = useSelector(getAuthBalance);
   const transactions = useSelector(selectTransactions);
   const [balance, setBalance] = useState(loginBalance);
-  const transactionBalance = transactions[transactions.length - 1]?.balanceAfter;
- 
+  const transactionBalance =
+    transactions[transactions.length - 1]?.balanceAfter;
+
   useEffect(() => {
     if (transactionBalance) setBalance(transactionBalance);
   }, [transactionBalance]);
 
   return (
     <div className={s.card}>
-      <p className={s.title}>Ваш баланс</p>
+      <p className={s.title}>Your balance</p>
       <p className={s.result}>&#8372; {balance}</p>
     </div>
   );

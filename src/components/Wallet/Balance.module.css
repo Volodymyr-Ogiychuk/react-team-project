@@ -1,16 +1,23 @@
 .card {
   min-width: 280px;
+  max-width: 350px;
   min-height: 80px;
-  padding: 8px 32px 12px 32px;
-  background-color: var(--primary-background-color);
+  padding: 8px 30px;
+  background-color: #ffffff;
   border-radius: 30px;
   margin-bottom: 0px;
+}
 
-  @media screen and (min-width: $TabletWidth) and (max-width: $DesktopWidth) {
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .card {
     padding: 10px 40px;
     margin-right: 20px;
+    min-width: 336px;
   }
-  @media screen and (min-width: $DesktopWidth) {
+}
+
+@media screen and (min-width: 1280px) {
+  .card {
     margin-bottom: 30px;
   }
 }
@@ -34,16 +41,4 @@
   margin: 0;
   align-items: center;
   color: #000000;
-
-  @media (min-width: 768px) {
-    .card {
-      min-width: 336px;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .card {
-      margin-bottom: 32px;
-    }
-  }
 }

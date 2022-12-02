@@ -29,43 +29,40 @@ export default function Navigation() {
       {isLoggedIn && (
         <>
           <header className={s.header}>
-            <div className={s.mainContainer}>
-              <div className={s.logoContainer}>
-                <NavLink to="/">
-                  <svg className={s.logoSvg}>
-                    <use href={`${sprite}#icon-logo-full`}></use>
-                  </svg>
-                </NavLink>
-              </div>
-              <div className={s.authContainer}>
-                <p className={s.name}>{username}</p>
+            <NavLink to="/" className={s.logoContainer}>
+              <svg className={s.logoSvg}>
+                <use href={`${sprite}#icon-wallet`}></use>
+              </svg>
+              <p className={s.logoText}>Wallet</p>
+            </NavLink>
+            <div className={s.authContainer}>
+              <p className={s.name}>{username}</p>
+              {/* <Media queries={mediaQueries}>
+                {matches =>
+                  (matches.tablet || matches.desktop) && (
+                    <svg className={s.lineSvg}>
+                      <use href={`${sprite}#icon-vertical-line`}></use>
+                    </svg>
+                  )
+                }
+              </Media> */}
+              <button
+                className={s.button}
+                onClick={() => setIsModalOpen(true)}
+                type="button"
+              >
+                <svg className={s.exitSvg} width="18px" height="18px">
+                  <use href={`${sprite}#icon-exit`}></use>
+                </svg>
                 <Media queries={mediaQueries}>
                   {matches =>
                     (matches.tablet || matches.desktop) && (
-                      <svg className={s.lineSvg}>
-                        <use href={`${sprite}#icon-vertical-line`}></use>
-                      </svg>
+                      <p className={s.exit}>Exit</p>
                     )
                   }
                 </Media>
-                <button
-                  className={s.button}
-                  onClick={() => setIsModalOpen(true)}
-                  type="button"
-                >
-                  <svg className={s.exitSvg}>
-                    <use href={`${sprite}#icon-exit`}></use>
-                  </svg>
-                  <Media queries={mediaQueries}>
-                    {matches =>
-                      (matches.tablet || matches.desktop) && (
-                        <p className={s.exit}>Exit</p>
-                      )
-                    }
-                  </Media>
-                </button>
-                {isModalOpen && <ModalLogOut setIsModalOpen={setIsModalOpen} />}
-              </div>
+              </button>
+              {isModalOpen && <ModalLogOut setIsModalOpen={setIsModalOpen} />}
             </div>
           </header>
         </>
