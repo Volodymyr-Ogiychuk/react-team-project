@@ -30,7 +30,7 @@ export function ModalLogOut({ setIsModalOpen }) {
     <div className={s.backdrop} onClick={closeOnOverlay}>
       <div className={s.modalContainer}>
         <form className={s.modalForm}>
-          <h2 className={s.text}>Are you sure</h2>
+          <h2 className={s.text}>Are you sure?</h2>
           <div>
             <button
               className={s.button}
