@@ -22,66 +22,65 @@ const Wallet = () => {
   }, [dispatch]);
   return (
     <section className={css.container}>
-      <div className={css.bar} >
-      <ul className={s.nav}>
-        <li className={s.navItem}>
-          <NavLink
-            to="home"
-            className={s.navLink}
-            activeclassname={s.navLinkActive}
-          >
-            <div className={s.iconWrapper}>
-              <svg className={s.svg}>
-                <use href={`${sprite}#icon-home`}></use>
-              </svg>
-            </div>
-            <span className={s.navText}>Home</span>
-          </NavLink>
-        </li>
-        <li className={s.navItem}>
-          <NavLink
-            to="diagram"
-            className={s.navLink}
-            activeclassname={s.navLinkActive}
-          >
-            <div className={s.iconWrapper}>
-              <svg className={s.svg}>
-                <use href={`${sprite}#icon-statistic`}></use>
-              </svg>
-            </div>
-            <span className={s.navText}>Statistics</span>
-          </NavLink>
-        </li>
+      <div className={css.bar}>
+        <ul className={s.nav}>
+          <li className={s.navItem}>
+            <NavLink
+              to="home"
+              className={s.navLink}
+              activeclassname={s.navLinkActive}
+            >
+              <div className={s.iconWrapper}>
+                <svg className={s.svg}>
+                  <use href={`${sprite}#icon-home`}></use>
+                </svg>
+              </div>
+              <span className={s.navText}>Home</span>
+            </NavLink>
+          </li>
+          <li className={s.navItem}>
+            <NavLink
+              to="diagram"
+              className={s.navLink}
+              activeclassname={s.navLinkActive}
+            >
+              <div className={s.iconWrapper}>
+                <svg className={s.svg}>
+                  <use href={`${sprite}#icon-statistic`}></use>
+                </svg>
+              </div>
+              <span className={s.navText}>Statistics</span>
+            </NavLink>
+          </li>
 
+          <Media queries={mediaQueries}>
+            {matches =>
+              (matches.mobile || matches.response) && (
+                <li className={s.navItem}>
+                  <NavLink
+                    to="currency"
+                    className={s.navLink}
+                    activeclassname={s.navLinkActive}
+                  >
+                    <div className={s.iconWrapper}>
+                      <svg className={s.svg}>
+                        <use href={`${sprite}#icon-currency`}></use>
+                      </svg>
+                    </div>
+                  </NavLink>
+                </li>
+              )
+            }
+          </Media>
+        </ul>
         <Media queries={mediaQueries}>
-          {matches =>
-            (matches.mobile || matches.response) && (
-              <li className={s.navItem}>
-                <NavLink
-                  to="currency"
-                  className={s.navLink}
-                  activeclassname={s.navLinkActive}
-                >
-                  <div className={s.iconWrapper}>
-                    <svg className={s.svg}>
-                      <use href={`${sprite}#icon-currency`}></use>
-                    </svg>
-                  </div>
-                </NavLink>
-              </li>
-            )
-          }
+          {matches => (matches.tablet || matches.desktop) && <Currency />}
         </Media>
-      </ul>
-      <Media queries={mediaQueries}>
-        {matches => (matches.tablet || matches.desktop) && <Currency />}
-      </Media>
       </div>
-      <div>
-        <Suspense>
-          <Outlet />
-        </Suspense>
-      </div>
+
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </section>
   );
 };

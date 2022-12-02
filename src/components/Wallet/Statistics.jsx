@@ -10,6 +10,7 @@ import {
   expenseSummary,
   incomeSummary,
 } from 'redux/statistics/statisticsSelectors';
+import s from '../Wallet/Statistics.module.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -32,7 +33,7 @@ const Statistics = () => {
       month: selectedMounth ? selectedMounth.value : 0,
       year: selectedYear.value,
     };
-    console.log(timeSelected);
+
     dispatch(getTransactionsSummary(timeSelected));
   }, [selectedMounth, selectedYear, dispatch]);
 
@@ -57,21 +58,10 @@ const Statistics = () => {
     { value: '2020', label: '2020' },
     { value: '2019', label: '2019' },
     { value: '2018', label: '2018' },
-    { value: '0', label: 'All' },
   ];
 
   const data = {
-    labels: [
-      // 'Basic expenses',
-      // 'Products',
-      // 'Car',
-      // 'Self care',
-      // 'Child care',
-      // 'Household products',
-      // 'Education',
-      // 'Leisure',
-      // 'Other expenses',
-    ],
+    labels: [],
     datasets: [
       {
         // label: '# of Votes',
@@ -93,48 +83,70 @@ const Statistics = () => {
     ],
   };
 
-  return (
-    <>
-      <h1>Statistics</h1>
-      <Doughnut data={data} />
-      <Select
-        onChange={setSelectedMounth}
-        options={optionsMounth}
-        placeholder="Mounth"
-      />
-      <Select
-        onChange={setSelectedYear}
-        options={optionsYear}
-        placeholder="Year"
-      />
-      <table>
-        <tbody>
-          <tr>
-            <th>Category</th>
-            <th>Sum</th>
+  const TableData = () => {
+    const isData = stateStatistics.length;
+    return isData ? (
+      <table className={s.table}>
+        <thead>
+          <tr className={s.tableHead}>
+            <th className={s.tableCategory}>Category</th>
+            <th className={s.tableSumm}>Sum</th>
           </tr>
+        </thead>
+        <tbody>
           {stateStatistics.map(({ name, type, total }) => {
             dataStatistics.push(total);
+            // data.labels.push(name);
             return type !== 'INCOME' ? (
-              <tr key={name}>
-                <td>{name}</td>
-                <td>{total}</td>
+              <tr className={s.tableTr} key={name}>
+                <td className={s.tableCategory}>{name}</td>
+                <td className={s.tableSumm}>{total}</td>
               </tr>
             ) : null;
           })}
         </tbody>
+        <tfoot>
+          <tr className={s.tableTr}>
+            <td className={s.tableCategory}>Expenses:</td>
+            <td className={s.tableSummExpence}>{expense}</td>
+          </tr>
+          <tr className={s.tableTr}>
+            <td className={s.tableCategory}>Income:</td>
+            <td className={s.tableSummIncome}>{income}</td>
+          </tr>
+        </tfoot>
       </table>
-      <ul>
-        <li>
-          <span>Expenses:</span>
-          <p>{expense}</p>
-        </li>
-        <li>
-          <span>Income:</span>
-          <p>{income}</p>
-        </li>
-      </ul>
-    </>
+    ) : (
+      <h2>Sorry</h2>
+    );
+  };
+  return (
+    <div className={s.container}>
+      <h1 className={s.statisticsHeading}>Statistics</h1>
+      <div className={s.statisticsBox}>
+        <div className={s.canvasBox}>
+          <h2 className={s.canvasSumm}>₴ 24.00</h2>
+          <Doughnut data={data} />
+        </div>
+        <div>
+          <div className={s.selectBox}>
+            <Select
+              className={s.select}
+              onChange={setSelectedMounth}
+              options={optionsMounth}
+              placeholder="Mounth"
+            />
+            <Select
+              className={s.select}
+              onChange={setSelectedYear}
+              options={optionsYear}
+              placeholder="Year"
+            />
+          </div>
+          <TableData />
+        </div>
+      </div>
+    </div>
   );
 };
 
