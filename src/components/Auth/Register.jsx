@@ -12,6 +12,7 @@ import { getAuthError } from 'redux/AuthRedux/selectors';
 import { useState } from 'react';
 const Register = () => {
   const [chek, setChek] = useState();
+  // eslint-disable-next-line
   const error = useSelector(getAuthError);
   const dispatch = useDispatch();
   const handleSubmit = e => {
@@ -31,7 +32,7 @@ const Register = () => {
   };
   const handlePassword = e => {
     console.log(e);
-    if (e == '') {
+    if (e === '') {
       setChek({ width: '0%' });
     }
     if (e.length > 0 && e.length < 5) {
