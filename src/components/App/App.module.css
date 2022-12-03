@@ -10,7 +10,7 @@ body {
         background-image: url(../../images/elipse_tablet.png);
       }
   }
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     body {
         background-image: url(../../images/elipse_desktop.png);
       }
