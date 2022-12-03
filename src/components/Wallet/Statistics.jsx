@@ -98,7 +98,7 @@ const Statistics = () => {
         <tbody>
           {stateStatistics.map(({ name, type, total }, idx) => {
             dataStatistics.push(total);
-
+            console.log(idx);
             // data.labels.push(name);
             return type !== 'INCOME' ? (
               <tr key={name}>
@@ -117,13 +117,15 @@ const Statistics = () => {
           })}
         </tbody>
         <tfoot>
-          <tr className={s.tableTr}>
-            <td className={s.tableCategory}>Expenses:</td>
-            <td className={s.tableSummExpence}>{expense}</td>
+          <tr>
+            <td className={`${s.tableData} ${s.tableDataTotal}`}>Expenses:</td>
+            <td className={`${s.tableData} ${s.tableDataExpenses}`}>
+              {expense}
+            </td>
           </tr>
-          <tr className={s.tableTr}>
-            <td className={s.tableCategory}>Income:</td>
-            <td className={s.tableSummIncome}>{income}</td>
+          <tr>
+            <td className={`${s.tableData} ${s.tableDataTotal}`}>Income:</td>
+            <td className={`${s.tableData} ${s.tableDataIncome}`}>{income}</td>
           </tr>
         </tfoot>
       </table>

@@ -9,7 +9,6 @@
   padding-top: 12px;
 }
 
-
 @media screen and (min-width: 768px) {
   .bar {
     display: flex;
@@ -31,7 +30,6 @@
     padding-left: 0;
     padding-right: 70px;
     border-right: 3px groove white;
-   
   }
   .container {
     flex-direction: row;
@@ -40,8 +38,7 @@
     padding-right: 18px;
   }
   .content {
-    padding-left:69px;
+    padding-left: 69px;
     padding-top: 46px;
-
   }
 }
