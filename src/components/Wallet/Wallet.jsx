@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { Currency } from './Currency';
 import Balance from './Balance';
@@ -8,6 +8,7 @@ import s from '../Navigation/Navigation.module.css';
 import css from '../Wallet/Wallet.module.css';
 import sprite from '../Navigation/sprite.svg';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { getTransactions } from 'redux/transactions/transactions-operations';
 import { AddTransactionBtn } from './AddTransactionBtn/AddTransactionBtn';
 import { selectModalStatus } from 'redux/transactions/transactions-selectors';
@@ -25,6 +26,8 @@ const Wallet = () => {
   useEffect(() => {
     dispatch(getTransactions());
   }, [dispatch]);
+  const { pathname } = useLocation();
+  console.log(pathname);
 
   return (
     <>
@@ -79,9 +82,15 @@ const Wallet = () => {
               }
             </Media>
           </ul>
-          <Balance />
+          {pathname !== '/wallet/currency' && <Balance />}
           <Media queries={mediaQueries}>
             {matches => (matches.tablet || matches.desktop) && <Currency />}
+          </Media>
+          <Media queries={mediaQueries}>
+            {matches =>
+              (matches.tablet || matches.desktop) &&
+              pathname === '/wallet/currency' && <Navigate to="/wallet/home" />
+            }
           </Media>
         </div>
         <div className={css.content}>

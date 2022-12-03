@@ -146,7 +146,7 @@
 
 .name {
   margin: 0;
-  font-family: 'Circe';
+  font-family: 'Circe', sans-serif;
   padding-right: 8px;
   color: #bdbdbd;
 }
@@ -155,10 +155,16 @@
   display: flex;
   align-items: center;
   color: #bdbdbd;
+  fill: #bdbdbd;
   padding: unset;
   border: none;
   background-color: transparent;
   cursor: pointer;
+  transition: all 250ms ease;
+}
+.button:hover,
+.button:focus {
+  fill: #ff6596;
 }
 
 @media screen and (max-width: 767px) {
@@ -192,6 +198,10 @@
     line-height: 27px;
     color: #bdbdbd;
     transition: all 250ms ease;
+  }
+  .exit:hover,
+  .exit:focus {
+    color: #ff6596;
   }
 }
 

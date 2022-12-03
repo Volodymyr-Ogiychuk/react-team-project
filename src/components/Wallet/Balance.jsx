@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectTransactions } from 'redux/transactions/transactions-selectors';
-import { getAuthBalance } from '../../redux/AuthRedux/selectors';
+// import { getAuthBalance } from '../../redux/AuthRedux/selectors';
 import s from './Balance.module.css';
 import { useState } from 'react';
 
 const Balance = () => {
-  const loginBalance = useSelector(getAuthBalance);
+  // const loginBalance = useSelector(getAuthBalance);
   const transactions = useSelector(selectTransactions);
-  const [balance, setBalance] = useState(loginBalance);
+  const [balance, setBalance] = useState(0);
   const transactionBalance =
     transactions[transactions.length - 1]?.balanceAfter;
 
