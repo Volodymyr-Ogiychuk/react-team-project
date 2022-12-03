@@ -10,8 +10,9 @@ import {
   expenseSummary,
   incomeSummary,
 } from 'redux/statistics/statisticsSelectors';
-import s from '../Wallet/Statistics.module.css';
+import s from './Statistics.module.css';
 import { getAuthBalance } from 'redux/AuthRedux/selectors';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -152,7 +153,7 @@ const Statistics = () => {
   };
 
   return (
-    <div className={s.container}>
+    <>
       <h1 className={s.statisticsHeading}>Statistics</h1>
       <div className={s.statisticsBox}>
         <div className={s.canvasBox}>
@@ -199,7 +200,7 @@ const Statistics = () => {
           <TableData />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

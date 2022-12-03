@@ -21,7 +21,7 @@ import css from './App.module.css';
 const Register = lazy(() => import('../Auth/Register'));
 const Login = lazy(() => import('../Auth/Login'));
 const Wallet = lazy(() => import('../Wallet/Wallet'));
-const Statistics = lazy(() => import('../Wallet/Statistics'));
+const Statistics = lazy(() => import('../Wallet/Statistics/Statistics'));
 const Transactions = lazy(() => import('../Wallet/Transactions'));
 
 export const App = () => {
