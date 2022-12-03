@@ -96,25 +96,40 @@ const Statistics = () => {
           </tr>
         </thead>
         <tbody>
-          {stateStatistics.map(({ name, type, total }, idx) => {
-            dataStatistics.push(total);
-            console.log(idx);
-            // data.labels.push(name);
-            return type !== 'INCOME' ? (
-              <tr key={name}>
-                <td
-                  className={`${s.tableData} ${idx === 0 && s.firstTableData}`}
-                >
-                  {name}
-                </td>
-                <td
-                  className={`${s.tableData} ${idx === 0 && s.firstTableData}`}
-                >
-                  {total}
-                </td>
-              </tr>
-            ) : null;
-          })}
+          {stateStatistics
+            .filter(({ type }) => type !== 'INCOME')
+            .map(({ name, total }, idx) => {
+              dataStatistics.push(total);
+              return (
+                <tr key={name}>
+                  <td
+                    className={`${s.tableData} ${
+                      idx === 0 && s.firstTableData
+                    }`}
+                  >
+                    <span
+                      className={`${s.spanTd} ${idx === 0 && s.colorSpan1} ${
+                        idx === 1 && s.colorSpan2
+                      } ${idx === 2 && s.colorSpan3} ${
+                        idx === 3 && s.colorSpan4
+                      } ${idx === 4 && s.colorSpan5} ${
+                        idx === 5 && s.colorSpan6
+                      } ${idx === 6 && s.colorSpan7} ${
+                        idx === 7 && s.colorSpan8
+                      } ${idx === 8 && s.colorSpan9}`}
+                    ></span>
+                    {name}
+                  </td>
+                  <td
+                    className={`${s.tableData} ${
+                      idx === 0 && s.firstTableData
+                    }`}
+                  >
+                    {total}
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
         <tfoot>
           <tr>
@@ -130,10 +145,9 @@ const Statistics = () => {
         </tfoot>
       </table>
     ) : (
-      <h2>Sorry</h2>
+      <h2>Sorry, no data found, please select an alternative query</h2>
     );
   };
-
   return (
     <div className={s.container}>
       <h1 className={s.statisticsHeading}>Statistics</h1>
