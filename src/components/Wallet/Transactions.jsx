@@ -4,7 +4,11 @@ import { compareDesc, format, parseISO } from 'date-fns';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Media from 'react-media';
-import { getCategories } from 'redux/transactions/transactions-operations';
+import {
+  deleteTransaction,
+  getCategories,
+  getTransactions,
+} from 'redux/transactions/transactions-operations';
 import {
   selectCategories,
   selectTransactions,
@@ -14,6 +18,8 @@ import {
 import { ModalAddTransaction } from './ModalAddTransaction';
 import s from './Transactions.module.css';
 import { mediaQueries } from './Wallet';
+import sprite from '../../images/transactions/transactionSprite.svg';
+import { toggleModal } from 'redux/transactions/transactions-slice';
 
 //// Media query using js:
 
@@ -25,6 +31,8 @@ import { mediaQueries } from './Wallet';
 
 //   return isMobile && <h1>BAALKSJFLA</h1>;
 // }
+
+let transactionID = '';
 
 //// Toggle body scroll lock:
 
@@ -39,9 +47,11 @@ function bodyScrollLock(isOpen) {
 }
 
 const Transactions = () => {
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [transactionsData, setTransactionsData] = useState([]);
   const isModalOpen = useSelector(selectModalStatus);
   const categories = useSelector(selectCategories);
-  const transactionsData = useSelector(selectTransactions);
+  const fetchtransactionsData = useSelector(selectTransactions);
   const isError = useSelector(selectError);
   const dispatch = useDispatch();
 
@@ -53,11 +63,120 @@ const Transactions = () => {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [dispatch]);
+    setTransactionsData(
+      // [...fetchtransactionsData].sort((a, b) =>
+      //   compareDesc(parseISO(a.transactionDate), parseISO(b.transactionDate))
+      // )
+      [...fetchtransactionsData]
+        .reverse()
+        .sort((a, b) =>
+          compareDesc(parseISO(a.transactionDate), parseISO(b.transactionDate))
+        )
+    );
+  }, [dispatch, fetchtransactionsData]);
 
-  const sortedTransactions = [...transactionsData].sort((a, b) =>
-    compareDesc(parseISO(a.transactionDate), parseISO(b.transactionDate))
-  );
+  function transactionsSorter(e) {
+    const needToDecrement = e.currentTarget.dataset.flag === 'incr';
+
+    if (e?.target.textContent === 'Sum') {
+      if (needToDecrement) {
+        setTransactionsData(state =>
+          [...state].sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount))
+        );
+        e.currentTarget.dataset.flag = 'decr';
+        return;
+      }
+
+      setTransactionsData(state =>
+        [...state].sort((a, b) => Math.abs(a.amount) - Math.abs(b.amount))
+      );
+      e.currentTarget.dataset.flag = 'incr';
+    }
+
+    if (e?.target.textContent === 'Date') {
+      if (needToDecrement) {
+        setTransactionsData(state =>
+          [...state].sort((a, b) =>
+            compareDesc(
+              parseISO(b.transactionDate),
+              parseISO(a.transactionDate)
+            )
+          )
+        );
+        e.currentTarget.dataset.flag = 'decr';
+        return;
+      }
+
+      setTransactionsData(state =>
+        [...state].sort((a, b) =>
+          compareDesc(parseISO(a.transactionDate), parseISO(b.transactionDate))
+        )
+      );
+      e.currentTarget.dataset.flag = 'incr';
+    }
+
+    if (e?.target.textContent === 'Type') {
+      if (needToDecrement) {
+        setTransactionsData(state =>
+          [...state].sort((a, b) => b.type.localeCompare(a.type))
+        );
+        e.currentTarget.dataset.flag = 'decr';
+        return;
+      }
+
+      setTransactionsData(state =>
+        [...state].sort((a, b) => a.type.localeCompare(b.type))
+      );
+      e.currentTarget.dataset.flag = 'incr';
+    }
+
+    if (e?.target.textContent === 'Category') {
+      if (needToDecrement) {
+        setTransactionsData(state =>
+          [...state].sort((a, b) =>
+            categories
+              .find(category => category.id === b.categoryId)
+              ?.name.localeCompare(
+                categories.find(category => category.id === a.categoryId)?.name
+              )
+          )
+        );
+        e.currentTarget.dataset.flag = 'decr';
+        return;
+      }
+
+      setTransactionsData(state =>
+        [...state].sort((a, b) =>
+          categories
+            .find(category => category.id === a.categoryId)
+            ?.name.localeCompare(
+              categories.find(category => category.id === b.categoryId)?.name
+            )
+        )
+      );
+      e.currentTarget.dataset.flag = 'incr';
+    }
+
+    if (e?.target.textContent === 'Balance') {
+      if (needToDecrement) {
+        setTransactionsData(state =>
+          [...state].sort((a, b) => b.balanceAfter - a.balanceAfter)
+        );
+        e.currentTarget.dataset.flag = 'decr';
+        return;
+      }
+
+      setTransactionsData(state =>
+        [...state].sort((a, b) => a.balanceAfter - b.balanceAfter)
+      );
+      e.currentTarget.dataset.flag = 'incr';
+    }
+  }
+
+  function onDeleteTransaction(id) {
+    dispatch(deleteTransaction(id));
+    dispatch(getTransactions());
+  }
 
   !!isError && toast.error(isError);
 
@@ -68,8 +187,8 @@ const Transactions = () => {
       <Media queries={mediaQueries}>
         {matches =>
           matches.mobile || matches.response ? (
-            <div className={s.mobTableContainer}>
-              {sortedTransactions.map(
+            <div>
+              {transactionsData.map(
                 ({
                   id,
                   transactionDate,
@@ -166,16 +285,48 @@ const Transactions = () => {
             <table className={s.transactionsTable}>
               <thead>
                 <tr className={s.tableHeaderRow}>
-                  <th className={s.tableHeaderData}>Date</th>
-                  <th className={s.tableHeaderData}>Type</th>
-                  <th className={s.tableHeaderData}>Category</th>
+                  <th
+                    className={s.tableHeaderData}
+                    onClick={transactionsSorter}
+                    data-flag="incr"
+                  >
+                    Date
+                  </th>
+                  <th
+                    className={s.tableHeaderData}
+                    onClick={transactionsSorter}
+                    data-flag="incr"
+                  >
+                    Type
+                  </th>
+                  <th
+                    className={s.tableHeaderData}
+                    onClick={e => transactionsSorter(e)}
+                    data-flag="incr"
+                  >
+                    Category
+                  </th>
                   <th className={s.tableHeaderData}>Comment</th>
-                  <th className={s.tableHeaderDataRight}>Sum</th>
-                  <th className={s.tableHeaderDataRight}>Balance</th>
+                  <th
+                    className={s.tableHeaderDataRight}
+                    data-flag="incr"
+                    onClick={transactionsSorter}
+                  >
+                    Sum
+                  </th>
+                  <th
+                    className={s.tableHeaderDataRight}
+                    data-flag="incr"
+                    onClick={transactionsSorter}
+                  >
+                    Balance
+                  </th>
+
+                  <th className={s.tableHeaderDataRight}>Edit</th>
                 </tr>
               </thead>
               <tbody className={s.tableBody}>
-                {sortedTransactions.map(
+                {transactionsData.map(
                   (
                     {
                       id,
@@ -240,6 +391,34 @@ const Transactions = () => {
                       >
                         {balanceAfter}
                       </td>
+                      <td
+                        className={`${s.tableDataRight} ${
+                          idx === 0 ? s.firstTableData : ''
+                        } ${idx === arr.length - 1 ? s.lastTableData : ''}`}
+                      >
+                        <button
+                          className={s.editBtn}
+                          onClick={() => {
+                            transactionID = id;
+                            dispatch(toggleModal());
+                            setEditModalOpen(true);
+                          }}
+                          type="button"
+                        >
+                          <svg className={s.editBtnIcon} width={15} height={15}>
+                            <use href={`${sprite}#icon-pencil`}></use>
+                          </svg>
+                        </button>
+                        <button
+                          className={s.editBtn}
+                          onClick={() => onDeleteTransaction(id)}
+                          type="button"
+                        >
+                          <svg className={s.editBtnIcon} width={15} height={15}>
+                            <use href={`${sprite}#icon-bin`}></use>
+                          </svg>
+                        </button>
+                      </td>
                     </tr>
                   )
                 )}
@@ -249,7 +428,13 @@ const Transactions = () => {
         }
       </Media>
 
-      {isModalOpen && <ModalAddTransaction />}
+      {isModalOpen && (
+        <ModalAddTransaction
+          editModalOpen={editModalOpen}
+          setEditModalOpen={setEditModalOpen}
+          transactionID={transactionID}
+        />
+      )}
 
       <ToastContainer />
     </section>
