@@ -168,7 +168,11 @@
 .tableData:last-child {
   text-align: right;
 }
-.tableData .firstTableData {
+.tableData:first-child {
+  display: flex;
+  align-items: center;
+}
+.firstTableData {
   border-top: none;
 }
 
@@ -176,8 +180,6 @@
   border-bottom: none;
 }
 .tableDataTotal {
-  padding-bottom: 0;
-  padding-top: 0;
   border-bottom: none;
   border-top: none;
   font-weight: 700;
@@ -194,5 +196,35 @@
   color: rgba(36, 204, 167, 1);
   font-weight: 700;
 }
-@media screen and (min-width: 1280px) {
+.spanTd {
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+}
+.colorSpan1 {
+  background-color: rgba(254, 208, 87, 1);
+}
+.colorSpan2 {
+  background-color: rgba(255, 216, 208, 1);
+}
+.colorSpan3 {
+  background-color: rgba(253, 148, 152, 1);
+}
+.colorSpan4 {
+  background-color: rgba(197, 186, 255, 1);
+}
+.colorSpan5 {
+  background-color: rgba(110, 120, 232, 1);
+}
+.colorSpan6 {
+  background-color: rgba(74, 86, 226, 1);
+}
+.colorSpan7 {
+  background-color: rgba(129, 225, 255, 1);
+}
+.colorSpan8 {
+  background-color: rgba(36, 204, 167, 1);
+}
+.colorSpan9 {
+  background-color: rgba(0, 113, 112, 1);
 }
