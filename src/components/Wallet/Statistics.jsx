@@ -99,7 +99,7 @@ const Statistics = () => {
           {stateStatistics
             .filter(({ type }) => type !== 'INCOME')
             .map(({ name, total }, idx) => {
-              dataStatistics.push(total);
+              dataStatistics.push(Math.abs(total));
               return (
                 <tr key={name}>
                   <td
@@ -125,7 +125,7 @@ const Statistics = () => {
                       idx === 0 && s.firstTableData
                     }`}
                   >
-                    {total}
+                    {Math.abs(total)}
                   </td>
                 </tr>
               );
@@ -135,12 +135,14 @@ const Statistics = () => {
           <tr>
             <td className={`${s.tableData} ${s.tableDataTotal}`}>Expenses:</td>
             <td className={`${s.tableData} ${s.tableDataExpenses}`}>
-              {expense}
+              {Math.abs(expense)}
             </td>
           </tr>
           <tr>
             <td className={`${s.tableData} ${s.tableDataTotal}`}>Income:</td>
-            <td className={`${s.tableData} ${s.tableDataIncome}`}>{income}</td>
+            <td className={`${s.tableData} ${s.tableDataIncome}`}>
+              {Math.abs(income)}
+            </td>
           </tr>
         </tfoot>
       </table>
