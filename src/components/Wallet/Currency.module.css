@@ -33,6 +33,7 @@
     display: flex;
     justify-content: space-between;;
     list-style: none;
+    margin: 0;
     padding-top: 17px;
     padding-left: 44px;
     padding-right: 64px;
@@ -67,9 +68,12 @@
 
 @media screen and (min-width: 768px) and (max-width: 1280px) {
     .item {
-        align-items: left;
+        
         font-size: 16px;
         font-weight: 400;
+    }
+    .item:not-first-child {
+        align-items: left;
     }
 
 }
@@ -108,4 +112,12 @@
     .currency {   
         padding-bottom: 20px;
     }
+}
+
+.loader {
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
