@@ -170,12 +170,13 @@ const Statistics = () => {
                   borderRadius: '30px',
                   height: '50px',
                   outline: 'none !important',
+                  lineHeight: 1.58,
                 }),
               }}
               className={s.select}
               onChange={setSelectedMounth}
               options={optionsMounth}
-              placeholder="Mounth"
+              placeholder="Month"
             />
             <Select
               styles={{
@@ -186,6 +187,7 @@ const Statistics = () => {
                   borderRadius: '30px',
                   height: '50px',
                   outline: 'none !important',
+                  lineHeight: 1.58,
                 }),
               }}
               className={s.select}
