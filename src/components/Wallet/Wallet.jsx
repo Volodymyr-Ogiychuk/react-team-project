@@ -33,6 +33,7 @@ const Wallet = () => {
     <>
       <section className={css.container}>
         <div className={css.bar}>
+          <div className={css.navigation}>
           <ul className={s.nav}>
             <li className={s.navItem}>
               <NavLink
@@ -82,16 +83,24 @@ const Wallet = () => {
               }
             </Media>
           </ul>
-          {pathname !== '/wallet/currency' && <Balance />}
-          <Media queries={mediaQueries}>
-            {matches => (matches.tablet || matches.desktop) && <Currency />}
-          </Media>
-          <Media queries={mediaQueries}>
-            {matches =>
-              (matches.tablet || matches.desktop) &&
-              pathname === '/wallet/currency' && <Navigate to="/wallet/home" />
-            }
-          </Media>
+          
+          <div className={css.balance}>
+            {pathname !== '/wallet/currency' && <Balance />}
+          </div>
+          </div>
+          <div className={css.currency}>
+            <Media queries={mediaQueries}>
+              {matches => (matches.tablet || matches.desktop) && <Currency />}
+            </Media>
+            <Media queries={mediaQueries}>
+              {matches =>
+                (matches.tablet || matches.desktop) &&
+                pathname === '/wallet/currency' && (
+                  <Navigate to="/wallet/home" />
+                )
+              }
+            </Media>
+          </div>
         </div>
         <div className={css.content}>
           <Suspense>

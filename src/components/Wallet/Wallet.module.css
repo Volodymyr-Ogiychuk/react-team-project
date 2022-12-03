@@ -6,13 +6,22 @@
   height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.balance {
+  margin-top:  12px;
+}
+.navigation {
   padding-top: 12px;
+}
+.content {
+  padding-top: 32px;
 }
 
 @media screen and (min-width: 768px) {
   .bar {
     display: flex;
-    padding-bottom: 20px;
+    justify-content: space-between;
   }
   .container {
     flex-direction: column;
@@ -20,9 +29,20 @@
     padding-left: 32px;
     padding-right: 32px;
   }
+  .balance {
+    margin-top:  28px;
+    padding-right: 32px;
+  }
+  .navigation {
+    padding-top: 0;
+  }
+  .content {
+    padding-top: 20px;
+  }
 }
 @media screen and (min-width: 1200px) {
   .bar {
+    justify-content: flex-start;
     flex-direction: column;
     margin-bottom: 0;
     padding-top: 40px;
@@ -40,5 +60,8 @@
   .content {
     padding-left: 69px;
     padding-top: 46px;
+  }
+  .balance {
+    padding-right: 0;
   }
 }
