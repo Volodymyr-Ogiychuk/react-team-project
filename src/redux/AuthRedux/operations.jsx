@@ -70,3 +70,15 @@ export const fetchCurrentUser = createAsyncThunk(
   }
 );
 
+export const refreshBalance = createAsyncThunk(
+  'auth/refreshBalance',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get('users/current');
+      return data.balance;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+);
+

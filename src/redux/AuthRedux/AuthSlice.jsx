@@ -1,5 +1,5 @@
 const { createSlice } = require('@reduxjs/toolkit/dist');
-const { LoginApi, fetchCurrentUser, RegisterApi, ResetApi } = require('./operations');
+const { LoginApi, fetchCurrentUser, RegisterApi, ResetApi, refreshBalance } = require('./operations');
 
 const handlePending = state => {
   state.registerUser = false;
@@ -58,6 +58,10 @@ const auth = createSlice({
         state.balance = action.payload.balance;
         state.error = null;
     },
+    [refreshBalance.fulfilled](state, action) {
+        state.balance = action.payload;
+    },
+
   },
 });
 
