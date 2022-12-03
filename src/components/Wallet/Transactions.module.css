@@ -1,16 +1,17 @@
 
-.transactions {
-  overflow-y: scroll;
+button {
+  margin: 0;
+  padding: 0;
 }
 
-@media screen and (min-width: 768px) {
-  .transactions {max-height: 60vh;}
+.transactions {
+  overflow-y: auto;
 }
 
 .transactionsTable {
   position: relative;
   margin: 0 auto;
-  max-width: 715px;
+  max-width: 765px;
   border-spacing: 0;
   /* border-collapse: separate !important; */
 
@@ -25,6 +26,7 @@
   top: 0;
   font-size: 18px;
   background-color: #fff;
+  transition: background-color 250ms;
 }
 
 .tableHeaderData:first-child {
@@ -35,9 +37,19 @@
   border-radius: 0 29px 29px 0;
 }
 
+.tableHeaderData[data-flag]:hover,
+.tableHeaderDataRight[data-flag]:hover {
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
+}
+
 .tableHeaderDataRight {
   composes: tableHeaderData;
   text-align: right;
+}
+
+.tableHeaderDataRight:last-child {
+  width: 85px;
 }
 
 .tableBody {
@@ -77,15 +89,64 @@
   color: #FF6596;
 }
 
+.tableDataRight:last-child {
+  width: 85px;
+  padding: 15px 15px 15px 0px;
+}
+
+.editBtn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  vertical-align: bottom;
+  padding-top: 4px;
+  transition: 250ms;
+}
+
+.editBtn:last-child {
+  margin-left: 5px;
+}
+
+.editBtn:first-child:hover {
+  background-color: #24CCA7;
+}
+
+.editBtn:hover {
+  background-color: #FF6596;
+}
+
+.editBtnIcon {
+  display: inline-block;
+  transition: 250ms;
+}
+
+.editBtn:hover .editBtnIcon {
+  fill: white;
+}
+
+@media screen and (min-width: 768px) {
+  .transactions {
+    max-height: 60vh;
+  }
+
+  .tableHeaderDataRight:last-child {
+    padding: 0;
+    padding-right: 15px;
+  }
+
+  .tableDataRight:last-child {
+    padding: 0;
+  }
+}
+
 /* MOBILE TABLE */
 
 p {
   padding: 0;
   margin: 0;
-}
-
-.mobTableContainer {
-  padding: 0 20px;
 }
 
 .mobTransaction {

@@ -2,18 +2,24 @@ import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
 import { useDispatch } from 'react-redux';
 import { toggleModal } from 'redux/transactions/transactions-slice';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as yup from 'yup';
 import 'react-datepicker/dist/react-datepicker.css';
 import s from './ModalAddTransaction.module.css';
 import {
   addTransaction,
+  editTransaction,
   getCategories,
+  getTransactions,
 } from 'redux/transactions/transactions-operations';
 import { CustomDatePicker } from './CustomDatePicker';
 import { ModalSelect } from './ModalSelect';
 
-export function ModalAddTransaction() {
+export function ModalAddTransaction({
+  editModalOpen,
+  setEditModalOpen,
+  transactionID,
+}) {
   const [startDate, setStartDate] = useState(new Date());
   const [categoryId, setCategoryId] = useState('');
   const dispatch = useDispatch();
@@ -22,24 +28,30 @@ export function ModalAddTransaction() {
     dispatch(getCategories());
   }, [dispatch]);
 
+  const closeModal = useCallback(() => {
+    dispatch(toggleModal());
+    setEditModalOpen(false);
+    dispatch(getTransactions());
+  }, [dispatch, setEditModalOpen]);
+
   // Close modal on ESC logic:
 
   useEffect(() => {
     const closeOnEsc = e => {
       if (e.code === 'Escape') {
-        dispatch(toggleModal());
+        closeModal();
       }
     };
 
     document.addEventListener('keydown', closeOnEsc);
     return () => document.removeEventListener('keydown', closeOnEsc);
-  }, [dispatch]);
+  }, [dispatch, closeModal]);
 
   // Close modal on overlay click logic:
 
   function closeOnOverlay(e) {
     if (e.target === e.currentTarget) {
-      dispatch(toggleModal());
+      closeModal();
     }
   }
 
@@ -63,10 +75,13 @@ export function ModalAddTransaction() {
         comment,
         categoryId: type ? categoryId : '063f1132-ba5d-42b4-951d-44011ca46262',
         amount: type ? Number(amount) * -1 : Number(amount),
+
         type: type ? 'EXPENSE' : 'INCOME',
       };
-      dispatch(addTransaction(newTransaction));
-      dispatch(toggleModal());
+      editModalOpen
+        ? dispatch(editTransaction({ transactionID, newTransaction }))
+        : dispatch(addTransaction(newTransaction));
+      closeModal();
     },
   });
 
@@ -77,13 +92,15 @@ export function ModalAddTransaction() {
       <div className={s.modal}>
         <button
           className={s.closeBtn}
-          onClick={() => dispatch(toggleModal())}
+          onClick={closeModal}
           type="button"
           aria-label="close button"
         ></button>
 
         <form className={s.modalForm} onSubmit={handleSubmit}>
-          <h2 className={s.modalTitle}>Add transaction</h2>
+          <h2 className={s.modalTitle}>
+            {editModalOpen ? 'Edit Transaction' : 'Add transaction'}
+          </h2>
 
           <div className={s.typeWrapper}>
             <div className={values.type ? s.inactive : s.income}>Income</div>
@@ -142,13 +159,9 @@ export function ModalAddTransaction() {
 
           <div className={s.btnWrapper}>
             <button className={s.addBtn} type="submit">
-              Add
+              {editModalOpen ? 'Edit' : 'Add'}
             </button>
-            <button
-              className={s.cancelBtn}
-              type="button"
-              onClick={() => dispatch(toggleModal())}
-            >
+            <button className={s.cancelBtn} type="button" onClick={closeModal}>
               Cancel
             </button>
           </div>
