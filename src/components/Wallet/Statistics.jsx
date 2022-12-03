@@ -28,6 +28,7 @@ const Statistics = () => {
   });
 
   const dispatch = useDispatch();
+  const isData = stateStatistics.length;
   let dataStatistics = [];
 
   useEffect(() => {
@@ -67,7 +68,7 @@ const Statistics = () => {
     datasets: [
       {
         // label: '# of Votes',
-        data: dataStatistics,
+        data: isData ? dataStatistics : [1],
         backgroundColor: [
           'rgba(254, 208, 87, 1)',
           'rgba(255, 216, 208, 1)',
@@ -86,7 +87,6 @@ const Statistics = () => {
   };
 
   const TableData = () => {
-    const isData = stateStatistics.length;
     return isData ? (
       <table className={s.table}>
         <thead className={s.tableHeader}>
@@ -150,12 +150,13 @@ const Statistics = () => {
       <h2>Sorry, no data found, please select an alternative query</h2>
     );
   };
+
   return (
     <div className={s.container}>
       <h1 className={s.statisticsHeading}>Statistics</h1>
       <div className={s.statisticsBox}>
         <div className={s.canvasBox}>
-          <h2 className={s.canvasSumm}>₴ {balance}</h2>
+          <h2 className={s.canvasSumm}>₴{`${isData ? balance : ''}`}</h2>
           <Doughnut data={data} />
         </div>
         <div>
