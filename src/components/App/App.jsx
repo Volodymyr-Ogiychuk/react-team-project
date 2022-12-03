@@ -16,6 +16,8 @@ import { fetchCurrentUser } from 'redux/AuthRedux/operations';
 // eslint-disable-next-line
 import css from './App.module.css';
 
+
+
 const Register = lazy(() => import('../Auth/Register'));
 const Login = lazy(() => import('../Auth/Login'));
 const Wallet = lazy(() => import('../Wallet/Wallet'));
