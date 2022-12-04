@@ -8,11 +8,10 @@ import { Currency } from 'components/Wallet/Currency';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 
-// import { getIsFetchingCurrent } from 'redux/store';
-import { useDispatch } from 'react-redux';
+import { getIsFetchingCurrent } from 'redux/AuthRedux/selectors'; 
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCurrentUser } from 'redux/AuthRedux/operations';
-// import { fetchCurrentUser } from 'redux/operations/operations';
 // eslint-disable-next-line
 import css from './App.module.css';
 
@@ -26,13 +25,13 @@ const Transactions = lazy(() => import('../Wallet/Transactions'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  // const isFetchingCurrentUser = useSelector(getIsFetchingCurrent);
+  const isFetchingCurrentUser = useSelector(getIsFetchingCurrent);
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   return (
-    // !isFetchingCurrentUser && (
+    !isFetchingCurrentUser && (
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route
@@ -88,6 +87,6 @@ export const App = () => {
         </Route>
       </Route>
     </Routes>
-    // )
+    )
   );
 };

@@ -20,7 +20,8 @@ const auth = createSlice({
     token: null,
     error: null,
     balance: 0,
-    registerUser: false
+    registerUser: false,
+    isFetchingCurrentUser: false
   },
   extraReducers: {
     [LoginApi.pending]: handlePending,
@@ -50,13 +51,18 @@ const auth = createSlice({
         state.balance = 0;
         state.error = null;
     },
-    [fetchCurrentUser.pending]: handlePending,
+    [fetchCurrentUser.pending](state, action) {
+      state.registerUser = false;
+      state.isLoggedIn = false;
+      state.isFetchingCurrentUser = true;
+  },
     [fetchCurrentUser.rejected]: handleRejected,
     [fetchCurrentUser.fulfilled](state, action) {
         state.username = action.payload.username;
         state.isLoggedIn = true;
         state.balance = action.payload.balance;
         state.error = null;
+        state.isFetchingCurrentUser = false;
     },
     [refreshBalance.fulfilled](state, action) {
         state.balance = action.payload;
