@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom';
 import register from '../../images/currency/register.png';
 import { useDispatch } from 'react-redux';
 import { RegisterApi } from 'redux/AuthRedux/operations';
-import sprite from '../Navigation/sprite.svg';
-import sp from './Auth.svg';
+import sprite from '../../images/sprite.svg';
 import s from './Login.module.css';
 // import Media from 'react-media';
 
@@ -88,7 +87,7 @@ const Register = () => {
               <div className={s.inner}>
                 <label form="email">
                   <svg className={s.svg}>
-                    <use href={`${sp}#email`}></use>
+                    <use href={`${sprite}#email`}></use>
                   </svg>
                   <Field
                     name="email"
@@ -102,7 +101,7 @@ const Register = () => {
               <div className={s.inner}>
                 <label form="password">
                   <svg className={s.svg}>
-                    <use href={`${sp}#password`}></use>
+                    <use href={`${sprite}#password`}></use>
                   </svg>
                   <Field
                     name="password"
@@ -116,7 +115,7 @@ const Register = () => {
               <div className={s.inner}>
                 <label form="password">
                   <svg className={s.svg}>
-                    <use href={`${sp}#password`}></use>
+                    <use href={`${sprite}#password`}></use>
                   </svg>
                   <Field
                     name="userpassword"
@@ -132,7 +131,7 @@ const Register = () => {
               </div>
               <div className={s.inner}>
                 <svg className={s.svg}>
-                  <use href={`${sp}#user`}></use>
+                  <use href={`${sprite}#user`}></use>
                 </svg>
                 <label form="username">
                   <Field

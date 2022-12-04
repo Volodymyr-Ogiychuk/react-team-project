@@ -2,8 +2,8 @@ import React from 'react';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Media from 'react-media';
-import Navigation from 'components/Navigation/Navigation';
-import { Currency } from 'components/Wallet/Currency';
+import AppBar from 'components/Navigation/AppBar';
+import { Currency } from 'components/DashboardPage/Currency/Currency';
 
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
@@ -19,9 +19,9 @@ import css from './App.module.css';
 
 const Register = lazy(() => import('../Auth/Register'));
 const Login = lazy(() => import('../Auth/Login'));
-const Wallet = lazy(() => import('../Wallet/Wallet'));
-const Statistics = lazy(() => import('../Wallet/Statistics/Statistics'));
-const Transactions = lazy(() => import('../Wallet/Transactions'));
+const DashboardPage = lazy(() => import('../DashboardPage/DashboardPage'));
+const Statistics = lazy(() => import('../DashboardPage/Statistics/Statistics'));
+const Transactions = lazy(() => import('../DashboardPage/Transactions/Transactions'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -33,11 +33,11 @@ export const App = () => {
   return (
     !isFetchingCurrentUser && (
     <Routes>
-      <Route path="/" element={<Navigation />}>
+      <Route path="/" element={<AppBar />}>
         <Route
           index
           element={
-            <PublicRoute restricted redirectTo="/wallet/home">
+            <PublicRoute restricted redirectTo="wallet/home">
               <Login />
             </PublicRoute>
           }
@@ -62,7 +62,7 @@ export const App = () => {
           path="/wallet"
           element={
             <PrivateRoute>
-              <Wallet />
+              <DashboardPage />
             </PrivateRoute>
           }
         >

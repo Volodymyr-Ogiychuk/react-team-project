@@ -75,16 +75,6 @@
   text-decoration: none;
 }
 
-/* .navLink:hover .navText,
-.navLink:hover .svg,
-.navLink:focus .navText,
-.navLink:focus .svg {
-  transition: color 250ms linear;
-  color: #000000;
-  font-weight: 700;
-  fill: #4a56e2;
-} */
-
 .navLinkActive {
   text-decoration: none;
   display: flex;

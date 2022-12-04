@@ -17,8 +17,8 @@ import {
 } from 'redux/transactions/transactions-selectors';
 import { ModalAddTransaction } from './ModalAddTransaction';
 import s from './Transactions.module.css';
-import { mediaQueries } from './Wallet';
-import sprite from '../../images/transactions/transactionSprite.svg';
+import { mediaQueries } from 'common/mediaQueries';
+import sprite from '../../../images/transactions/transactionSprite.svg';
 import { toggleModal } from 'redux/transactions/transactions-slice';
 
 let transactionID = '';

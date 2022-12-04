@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import s from './ModalAddTransaction.module.css';
-import sprite from '../../images/transactions/transactionSprite.svg';
+import sprite from '../../../images/transactions/transactionSprite.svg';
 
 export const CustomDatePicker = forwardRef(({ value, onClick }, ref) => {
   return (

@@ -4,7 +4,7 @@
     color: #FFFFFF;
     width: 393px;
     height: 347px;
-    background-image: url("../../images/currency/CurrencyBackGrnd.png");
+    background-image: url("../../../images/currency/CurrencyBackGrnd.png");
 
 }
 
@@ -15,7 +15,7 @@
         align-items: flex-start;
         width: 336px;
         height: 182px;
-        background-image: url("../../images/currency/CurrencyBackGrnd_tab.png");
+        background-image: url("../../../images/currency/CurrencyBackGrnd_tab.png");
     }
 }
 
@@ -25,7 +25,7 @@
         margin: auto;
         width: 280px;
         height: 174px;
-        background-image: url("../../images/currency/CurrencyBackGrnd_mob.png");
+        background-image: url("../../../images/currency/CurrencyBackGrnd_mob.png");
     }
 }
 

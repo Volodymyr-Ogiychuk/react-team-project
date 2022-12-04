@@ -3,8 +3,7 @@ import s from './Login.module.css';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { LoginApi } from 'redux/AuthRedux/operations';
-import sprite from '../Navigation/sprite.svg';
-import sp from './Auth.svg';
+import sprite from '../../images/sprite.svg';
 import login from '../../images/currency/login.png';
 const Login = () => {
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ const Login = () => {
               <div className={s.inner}>
                 <label>
                   <svg className={s.svg}>
-                    <use href={`${sp}#email`}></use>
+                    <use href={`${sprite}#email`}></use>
                   </svg>
                   <Field
                     name="email"
@@ -46,7 +45,7 @@ const Login = () => {
               <div className={s.inner}>
                 <label>
                   <svg className={s.svg}>
-                    <use href={`${sp}#password`}></use>
+                    <use href={`${sprite}#password`}></use>
                   </svg>
                   <Field
                     name="password"

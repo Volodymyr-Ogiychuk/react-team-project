@@ -10,6 +10,7 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
   state.isLoggedIn = false;
   state.registerUser = false;
+  state.isFetchingCurrentUser = false
 };
 
 const auth = createSlice({
