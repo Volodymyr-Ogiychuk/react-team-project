@@ -1,6 +1,6 @@
 import s from '../Wallet/Currency.module.css';
 import { useState, useEffect } from 'react';
-import CurrencyLoader from './CurrencyLoader';
+import Loader from './CurrencyLoader';
 import axios from "axios";
 
 export const Currency = () => {
@@ -67,7 +67,7 @@ export const Currency = () => {
 
     return (
       <div className={s.container}>
-        {isLoading ? <div className={s.loader}><CurrencyLoader /></div> : 
+        {isLoading ? <div className={s.loader}><Loader heigth="60" width="60"/></div> : 
             <ul className={s.list}>
                 <li className={s.item}>
                     <span className={s.title}>Currency</span>

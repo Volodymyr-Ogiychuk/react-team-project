@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { getTransactions } from 'redux/transactions/transactions-operations';
 import { AddTransactionBtn } from './AddTransactionBtn/AddTransactionBtn';
 import { selectModalStatus } from 'redux/transactions/transactions-selectors';
+import Loader from './Loader';
 
 export const mediaQueries = {
   response: '(max-width: 479px)',
@@ -26,9 +27,10 @@ const Wallet = () => {
   useEffect(() => {
     dispatch(getTransactions());
   }, [dispatch]);
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const { pathname } = location;
   const isHomePage = pathname === '/wallet/home';
-
+  console.log(location);
   return (
     <>
       <section className={css.container}>
@@ -38,8 +40,8 @@ const Wallet = () => {
               <li className={s.navItem}>
                 <NavLink
                   to="home"
-                  className={s.navLink}
-                  activeclassname={s.navLinkActive}
+                  className={location.pathname === '/wallet/home' ? s.navLinkActive : s.navLink }
+                  // activeclassname={s.navLinkActive}
                 >
                   <div className={s.iconWrapper}>
                     <svg className={s.svg}>
@@ -52,7 +54,7 @@ const Wallet = () => {
               <li className={s.navItem}>
                 <NavLink
                   to="diagram"
-                  className={s.navLink}
+                  className={location.pathname === '/wallet/diagram' ? s.navLinkActive : s.navLink}
                   activeclassname={s.navLinkActive}
                 >
                   <div className={s.iconWrapper}>
@@ -103,7 +105,7 @@ const Wallet = () => {
           </div>
         </div>
         <div className={css.content}>
-          <Suspense>
+          <Suspense fallback= {<Loader/>}>
             <Outlet />
           </Suspense>
         </div>
