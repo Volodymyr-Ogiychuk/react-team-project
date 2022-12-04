@@ -26,8 +26,8 @@ const Wallet = () => {
   useEffect(() => {
     dispatch(getTransactions());
   }, [dispatch]);
-  const { pathname } = useLocation();
-  console.log(pathname);
+  const location = useLocation();
+  const { pathname } = location;
 
   return (
     <>
