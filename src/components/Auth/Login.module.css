@@ -157,7 +157,7 @@ margin:0 auto;
     padding-bottom: 62px;
   }
   .title {
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
@@ -184,7 +184,7 @@ margin:0 auto;
 
 .button,
 .link {
-  font-family: 'Circe';
+  font-family: 'Circe', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;

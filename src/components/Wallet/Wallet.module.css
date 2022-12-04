@@ -3,7 +3,8 @@
   flex-direction: column;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(25px);
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
   padding-left: 20px;
   padding-right: 20px;
 }

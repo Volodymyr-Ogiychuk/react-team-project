@@ -1,20 +1,26 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectTransactions } from 'redux/transactions/transactions-selectors';
-// import { getAuthBalance } from '../../redux/AuthRedux/selectors';
+import { getAuthBalance } from '../../redux/AuthRedux/selectors';
 import s from './Balance.module.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { refreshBalance } from 'redux/AuthRedux/operations';
 
 const Balance = () => {
-  // const loginBalance = useSelector(getAuthBalance);
+  const apiBalance = useSelector(getAuthBalance);
   const transactions = useSelector(selectTransactions);
-  const [balance, setBalance] = useState(0);
-  const transactionBalance =
-    transactions[transactions.length - 1]?.balanceAfter;
+  const [balance, setBalance] = useState(apiBalance);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+  dispatch(refreshBalance());
+// eslint-disable-next-line
+  }, [transactions]);
 
   useEffect(() => {
-    if (transactionBalance) setBalance(transactionBalance);
-  }, [transactionBalance]);
+  setBalance(apiBalance);
+  }, [apiBalance]);
 
   return (
     <div className={s.card}>
