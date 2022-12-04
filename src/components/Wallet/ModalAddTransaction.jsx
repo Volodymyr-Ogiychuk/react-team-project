@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from 'redux/transactions/transactions-slice';
 import { useCallback, useEffect, useState } from 'react';
 import * as yup from 'yup';
@@ -14,6 +14,8 @@ import {
 } from 'redux/transactions/transactions-operations';
 import { CustomDatePicker } from './CustomDatePicker';
 import { ModalSelect } from './ModalSelect';
+import { createPortal } from 'react-dom';
+import { selectTransactions } from 'redux/transactions/transactions-selectors';
 
 export function ModalAddTransaction({
   editModalOpen,
@@ -22,7 +24,12 @@ export function ModalAddTransaction({
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [categoryId, setCategoryId] = useState('');
+  const transactionsData = useSelector(selectTransactions);
   const dispatch = useDispatch();
+
+  const currentTransaction = transactionsData.find(
+    el => el.id === transactionID
+  );
 
   useEffect(() => {
     dispatch(getCategories());
@@ -59,13 +66,17 @@ export function ModalAddTransaction({
 
   const formik = useFormik({
     initialValues: {
-      type: true,
-      amount: '',
-      comment: '',
+      type: editModalOpen
+        ? currentTransaction.type === 'EXPENSE'
+          ? true
+          : false
+        : true,
+      amount: editModalOpen ? Math.abs(currentTransaction.amount) : '',
+      comment: editModalOpen ? currentTransaction.comment : '',
     },
     validationSchema: yup.object({
       type: yup.bool(),
-      amount: yup.number().required('Required'),
+      amount: yup.number().required('*Required'),
       comment: yup.string().max(40, '40 characters max'),
     }),
 
@@ -87,7 +98,7 @@ export function ModalAddTransaction({
 
   const { handleChange, handleSubmit, values, errors, touched } = formik;
 
-  return (
+  return createPortal(
     <div className={s.backdrop} onClick={closeOnOverlay}>
       <div className={s.modal}>
         <button
@@ -119,21 +130,21 @@ export function ModalAddTransaction({
 
           {values.type && <ModalSelect setCategoryId={setCategoryId} />}
           {touched.categoryId && errors.categoryId ? (
-            <div>{errors.categoryId}</div>
+            <div className={s.validatoinError}>{errors.categoryId}</div>
           ) : null}
 
           <div className={s.amountAndDate}>
             <input
               className={s.amountInput}
               name="amount"
-              type="text"
+              type="number"
               placeholder="0.00"
               value={values.amount}
               onChange={handleChange}
               required
             />
             {touched.amount && errors.amount ? (
-              <div>{errors.amount}</div>
+              <div className={s.validatoinError}>{errors.amount}</div>
             ) : null}
 
             <DatePicker
@@ -154,7 +165,7 @@ export function ModalAddTransaction({
             onChange={handleChange}
           />
           {touched.comment && errors.comment ? (
-            <div>{errors.comment}</div>
+            <div className={s.validatoinError}>{errors.comment}</div>
           ) : null}
 
           <div className={s.btnWrapper}>
@@ -167,6 +178,7 @@ export function ModalAddTransaction({
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.querySelector('#modal-root')
   );
 }

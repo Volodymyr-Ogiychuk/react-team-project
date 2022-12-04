@@ -21,17 +21,6 @@ import { mediaQueries } from './Wallet';
 import sprite from '../../images/transactions/transactionSprite.svg';
 import { toggleModal } from 'redux/transactions/transactions-slice';
 
-//// Media query using js:
-
-// function AlterTable() {
-//   const [isMobile, setIsMobile] = useState(false);
-//   window.matchMedia('(max-width: 767px)').addEventListener('change', e => {
-//     e.matches ? setIsMobile(true) : setIsMobile(false);
-//   });
-
-//   return isMobile && <h1>BAALKSJFLA</h1>;
-// }
-
 let transactionID = '';
 
 //// Toggle body scroll lock:
@@ -39,10 +28,10 @@ let transactionID = '';
 function bodyScrollLock(isOpen) {
   if (isOpen) {
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
+    // document.body.style.position = 'fixed';
   } else {
     document.body.style.overflow = 'visible';
-    document.body.style.position = 'static';
+    // document.body.style.position = 'static';
   }
 }
 
@@ -64,9 +53,6 @@ const Transactions = () => {
   useEffect(() => {
     dispatch(getCategories());
     setTransactionsData(
-      // [...fetchtransactionsData].sort((a, b) =>
-      //   compareDesc(parseISO(a.transactionDate), parseISO(b.transactionDate))
-      // )
       [...fetchtransactionsData]
         .reverse()
         .sort((a, b) =>
@@ -187,7 +173,7 @@ const Transactions = () => {
       <Media queries={mediaQueries}>
         {matches =>
           matches.mobile || matches.response ? (
-            <div>
+            <ul>
               {transactionsData.map(
                 ({
                   id,
@@ -198,7 +184,7 @@ const Transactions = () => {
                   amount,
                   balanceAfter,
                 }) => (
-                  <div className={s.mobTransaction} key={id}>
+                  <li className={s.mobTransaction} key={id}>
                     <div
                       className={
                         type === 'INCOME'
@@ -277,10 +263,10 @@ const Transactions = () => {
                       <p className={s.transactionHeader}>Balance</p>
                       <p className={s.transactionData}>{balanceAfter}</p>
                     </div>
-                  </div>
+                  </li>
                 )
               )}
-            </div>
+            </ul>
           ) : (
             <table className={s.transactionsTable}>
               <thead>
@@ -442,3 +428,14 @@ const Transactions = () => {
 };
 
 export default Transactions;
+
+//// Media query using js:
+
+// function AlterTable() {
+//   const [isMobile, setIsMobile] = useState(false);
+//   window.matchMedia('(max-width: 767px)').addEventListener('change', e => {
+//     e.matches ? setIsMobile(true) : setIsMobile(false);
+//   });
+
+//   return isMobile && <h1>ITS WORKING</h1>;
+// }

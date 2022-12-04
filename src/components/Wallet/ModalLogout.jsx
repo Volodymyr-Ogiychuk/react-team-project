@@ -8,16 +8,16 @@ export function ModalLogOut({ setIsModalOpen }) {
   useEffect(() => {
     const closeOnEsc = e => {
       if (e.code === 'Escape') {
-        dispatch(ModalLogOut());
+        setIsModalOpen(false);
       }
     };
     document.addEventListener('keydown', closeOnEsc);
     return () => document.removeEventListener('keydown', closeOnEsc);
-  }, [dispatch]);
+  }, [dispatch, setIsModalOpen]);
 
   function closeOnOverlay(e) {
     if (e.target === e.currentTarget) {
-      dispatch(ModalLogOut());
+      setIsModalOpen(false);
     }
   }
 

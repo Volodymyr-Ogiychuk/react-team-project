@@ -26,67 +26,67 @@ const Wallet = () => {
   useEffect(() => {
     dispatch(getTransactions());
   }, [dispatch]);
-  const location = useLocation();
-  const { pathname } = location;
+  const { pathname } = useLocation();
+  const isHomePage = pathname === '/wallet/home';
 
   return (
     <>
       <section className={css.container}>
         <div className={css.bar}>
           <div className={css.navigation}>
-          <ul className={s.nav}>
-            <li className={s.navItem}>
-              <NavLink
-                to="home"
-                className={s.navLink}
-                activeclassname={s.navLinkActive}
-              >
-                <div className={s.iconWrapper}>
-                  <svg className={s.svg}>
-                    <use href={`${sprite}#icon-home`}></use>
-                  </svg>
-                </div>
-                <span className={s.navText}>Home</span>
-              </NavLink>
-            </li>
-            <li className={s.navItem}>
-              <NavLink
-                to="diagram"
-                className={s.navLink}
-                activeclassname={s.navLinkActive}
-              >
-                <div className={s.iconWrapper}>
-                  <svg className={s.svg}>
-                    <use href={`${sprite}#icon-statistic`}></use>
-                  </svg>
-                </div>
-                <span className={s.navText}>Statistics</span>
-              </NavLink>
-            </li>
-            <Media queries={mediaQueries}>
-              {matches =>
-                (matches.mobile || matches.response) && (
-                  <li className={s.navItem}>
-                    <NavLink
-                      to="currency"
-                      className={s.navLink}
-                      activeclassname={s.navLinkActive}
-                    >
-                      <div className={s.iconWrapper}>
-                        <svg className={s.svg}>
-                          <use href={`${sprite}#icon-currency`}></use>
-                        </svg>
-                      </div>
-                    </NavLink>
-                  </li>
-                )
-              }
-            </Media>
-          </ul>
-          
-          <div className={css.balance}>
-            {pathname !== '/wallet/currency' && <Balance />}
-          </div>
+            <ul className={s.nav}>
+              <li className={s.navItem}>
+                <NavLink
+                  to="home"
+                  className={s.navLink}
+                  activeclassname={s.navLinkActive}
+                >
+                  <div className={s.iconWrapper}>
+                    <svg className={s.svg}>
+                      <use href={`${sprite}#icon-home`}></use>
+                    </svg>
+                  </div>
+                  <span className={s.navText}>Home</span>
+                </NavLink>
+              </li>
+              <li className={s.navItem}>
+                <NavLink
+                  to="diagram"
+                  className={s.navLink}
+                  activeclassname={s.navLinkActive}
+                >
+                  <div className={s.iconWrapper}>
+                    <svg className={s.svg}>
+                      <use href={`${sprite}#icon-statistic`}></use>
+                    </svg>
+                  </div>
+                  <span className={s.navText}>Statistics</span>
+                </NavLink>
+              </li>
+              <Media queries={mediaQueries}>
+                {matches =>
+                  (matches.mobile || matches.response) && (
+                    <li className={s.navItem}>
+                      <NavLink
+                        to="currency"
+                        className={s.navLink}
+                        activeclassname={s.navLinkActive}
+                      >
+                        <div className={s.iconWrapper}>
+                          <svg className={s.svg}>
+                            <use href={`${sprite}#icon-currency`}></use>
+                          </svg>
+                        </div>
+                      </NavLink>
+                    </li>
+                  )
+                }
+              </Media>
+            </ul>
+
+            <div className={css.balance}>
+              {pathname !== '/wallet/currency' && <Balance />}
+            </div>
           </div>
           <div className={css.currency}>
             <Media queries={mediaQueries}>
@@ -110,12 +110,14 @@ const Wallet = () => {
       </section>
       <Media queries={mediaQueries}>
         {matches =>
-          (matches.tablet || matches.desktop) && <AddTransactionBtn />
+          (matches.tablet || matches.desktop) &&
+          isHomePage && <AddTransactionBtn />
         }
       </Media>
       <Media queries={mediaQueries}>
         {matches =>
           (matches.mobile || matches.response) &&
+          isHomePage &&
           !isTransactionModalOpen && <AddTransactionBtn />
         }
       </Media>
