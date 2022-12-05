@@ -1,19 +1,42 @@
 import { Formik, Field, Form } from 'formik';
-import s from './Login.module.css';
+import s from './Auth.module.css';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { LoginApi } from 'redux/AuthRedux/operations';
 import sprite from '../../images/sprite.svg';
 import login from '../../images/currency/login.png';
+import Photo from './AuthPhoto';
+import { mediaQueriesAuth } from './RegistrationForm';
+import Media from 'react-media';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const dispatch = useDispatch();
-
+  const notify = e =>
+    toast.error(e, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  const handleSubmit = e => {
+    const { password } = e;
+    password.length >= 6 && password.length <= 12
+      ? dispatch(LoginApi(e))
+      : notify('The password must contain from 6 to 12');
+  };
   return (
     <div className={s.section}>
-      <div className={s.aside}>
-        <img src={login} alt="login" className={s.image} />
-        <h2 className={s.title}>Finance App</h2>
-      </div>
+      <Media queries={mediaQueriesAuth}>
+        {matches =>
+          (matches.tablet || matches.desktop) && <Photo img={login} />
+        }
+      </Media>
       <div className={s.body}>
         <div className={s.box}>
           <div className={s.logo}>
@@ -23,8 +46,19 @@ const Login = () => {
           </div>
           <Formik
             initialValues={{ password: '', email: '' }}
+            validate={({ password, email }) => {
+              const errors = {};
+              if (!email) {
+                errors.email = 'Required';
+              } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{3,}$/i.test(email)
+              ) {
+                errors.email = 'Invalid email address';
+              }
+              return errors;
+            }}
             onSubmit={e => {
-              dispatch(LoginApi(e));
+              handleSubmit(e);
             }}
           >
             <Form className={s.form}>
@@ -66,6 +100,7 @@ const Login = () => {
           </Formik>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
