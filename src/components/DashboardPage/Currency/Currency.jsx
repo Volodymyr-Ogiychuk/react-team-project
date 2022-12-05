@@ -24,18 +24,18 @@ export const Currency = () => {
 
   function getCurrencies() {
     fetchCurrencyAPI().then((data) => {
-      console.log('FETCHING!!!!!!');
-      const usdBuy = data[0].rateBuy;
-      const usdSale = data[0].rateSell;
-      const eurBuy = data[1].rateBuy;
-      const eurSale = data[1].rateSell;
-      const plnBuy = data[82].rateCross;
-      const plnSale = data[82].rateCross;
+      const usdBuy = Number(data[0].rateBuy.toFixed(2));
+      const usdSale = Number(data[0].rateSell.toFixed(2));
+      const eurBuy = Number(data[1].rateBuy.toFixed(2));
+      const eurSale = Number(data[1].rateSell.toFixed(2));
+      const plnBuy = Number(data[82].rateCross.toFixed(2));
+      const plnSale = Number(data[82].rateCross.toFixed(2));
 
       setEUR({ buy: eurBuy, sale: eurSale });
       setUSD({ buy: usdBuy, sale: usdSale });
       setPLN({ buy: plnBuy, sale: plnSale });
       setDateFetching(Date.now());
+      
     })
     .catch(err => err.message)
         .finally(() => setIsLoading(false));
@@ -47,23 +47,28 @@ export const Currency = () => {
     
     if (!localStorage.getItem('currencies')) {
       getCurrencies();
-     
     } else {
       const storage = JSON.parse(localStorage.getItem('currencies'));
-      console.log('storage', storage);
-      if ((storage.dateFetching !== 0) && (storage.dateFetching - Date.now() <= 3600000)) {
-        console.log('Time limit not reached, writing info from Local to hooks');
-        setUSD(storage.USD);
-        setEUR(storage.EUR);
-        setPLN(storage.PLN);
-        setIsLoading(false);
+      const TIMERdiff = Date.now() - storage.dateFetching;
+        if (TIMERdiff <= 360000) {
+          setUSD(storage.USD);
+          setEUR(storage.EUR);
+          setPLN(storage.PLN);
+          setDateFetching(storage.dateFetching);
+          setIsLoading(false);
+          return
       }
-      getCurrencies();
-    }
+        getCurrencies();
+      }
+      
     // eslint-disable-next-line
-  }, []);
-  
-  localStorage.setItem('currencies', JSON.stringify({EUR, USD, PLN, dateFetching}));      
+}, [])
+
+  useEffect(() => {
+    localStorage.setItem('currencies', JSON.stringify({ EUR, USD, PLN, dateFetching }));
+    // eslint-disable-next-line
+  }, [getCurrencies])
+      
 
     return (
       <div className={s.container}>
