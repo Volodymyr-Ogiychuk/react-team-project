@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { ModalLogOut } from 'components/Navigation/ModalLogout';
 import { mediaQueries } from 'common/mediaQueries';
 
-export default function AppBar() {
+export default function Layout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const username = useSelector(getAuthUser);
   const isLoggedIn = useSelector(getAuthIsLoggedIn);
